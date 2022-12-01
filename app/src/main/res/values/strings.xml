@@ -11,4 +11,15 @@
     <string name="registration">Registration</string>
     <string name="next">Next</string>
     <string name="repeat_password">Repeat Password</string>
+    <string name="hosting_an_activity">Hosting an activity</string>
+    <string name="profile_creation">Profile Creation</string>
+    <string name="birthdate">Birthdate:</string>
+    <string name="full_name">Full name:</string>
+    <string name="joining_an_activity">Joining an activity</string>
+    <string name="hobbies">Hobbies:</string>
+    <string name="gender">Gender:</string>
+    <string name="male">Male</string>
+    <string name="female">Female</string>
+    <string name="other">Other</string>
+    <string name="confirm">Confirm</string>
 </resources>
