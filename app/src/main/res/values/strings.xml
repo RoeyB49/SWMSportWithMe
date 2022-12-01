@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">SWMSportWithMe</string>
+    <string name="welcome_to">Welcome to</string>
+    <string name="swm_sport_with_me">SWM Sport With Me</string>
+    <string name="register">Register</string>
+    <string name="password">Password:</string>
+    <string name="email">Email:</string>
+    <string name="login">LOGIN</string>
+</resources>
