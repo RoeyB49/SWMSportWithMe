@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "39470460250",
+    "project_id": "swmsportwithme",
+    "storage_bucket": "swmsportwithme.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:39470460250:android:18be41bcb41ab064a19763",
+        "android_client_info": {
+          "package_name": "com.example.swmsportwithme"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "39470460250-mr6ivahq1afbu2pnhttb1096dd5ulm1m.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCg74GN8-fgzc6J6jWWnqMXUqeVV_n6_Uw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "39470460250-mr6ivahq1afbu2pnhttb1096dd5ulm1m.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
