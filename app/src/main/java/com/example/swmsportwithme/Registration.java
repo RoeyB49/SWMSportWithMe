@@ -84,7 +84,7 @@ public class Registration extends AppCompatActivity {
 
                 // Add a new document with a generated ID
                 FirebaseRef db = new FirebaseRef();
-                if (RB2.getText().toString().equals("Joining_CheckBox_Registration")) {
+                if (RB2.getText().toString().equals("Joining an activity")) {
                     db.addUser(user, "Join");
                 } else {
                     db.addUser(user, "Host");
