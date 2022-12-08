@@ -28,6 +28,13 @@ public class MainActivity extends AppCompatActivity {
         });
 
         // Move to welcome screen
+        login.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                openHost();
+            }
+        });
+
 
     }
 
@@ -35,4 +42,10 @@ public class MainActivity extends AppCompatActivity {
         Intent intent = new Intent(this, Registration.class);
         startActivity(intent);
     }
+
+    private void openHost() {
+        Intent intent = new Intent(this, Host_Activity_Page.class);
+        startActivity(intent);
+    }
+
 }
