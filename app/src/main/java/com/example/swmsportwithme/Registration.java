@@ -190,9 +190,9 @@ public class Registration extends AppCompatActivity {
                     mAuth = FirebaseAuth.getInstance();
                     if (ActivityType.getCheckedRadioButtonId()!=-1) {
                         if (RB2.getText().toString().equals("Joining an activity")) {
-                            db.addUser(user, "Join",mAuth.getUid());
+                            db.addUser(user, "Join");
                         } else {
-                            db.addUser(user, "Host",mAuth.getUid());
+                            db.addUser(user, "Host");
                         }
                     }
                     createAccount((String)user.get("Email"), (String)user.get("Password"));

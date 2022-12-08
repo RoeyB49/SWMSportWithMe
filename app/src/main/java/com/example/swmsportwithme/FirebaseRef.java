@@ -28,27 +28,20 @@ public class FirebaseRef {
         mAuth = FirebaseAuth.getInstance();
     }
 
-    public void addUser(Map<String, Object> user, String collectionPath,String UID) {
-//        Map<String, Object> data = new HashMap<>();
-//        data.put("capital", true);
-//
-//        db.collection("cities").document("BJ")
-//                .set(data, SetOptions.merge());
-
-//        db.collection(collectionPath)
-//                .document(UID).set(user)
-//                .addOnSuccessListener(new <DocumentReference>()) {
-//                    @Override
-//                    public void onSuccess(DocumentReference documentReference) {
-//                        Log.d(TAG, "DocumentSnapshot added with ID: " + documentReference.getId());
-//                    }
-//                })
-//                .addOnFailureListener(new OnFailureListener() {
-//                    @Override
-//                    public void onFailure(@NonNull Exception e) {
-//                        Log.w(TAG, "Error adding document", e);
-//                    }
-//                });
+    public void addUser(Map<String, Object> user, String collectionPath) {
+        db.collection(collectionPath)
+                .add(user)
+                .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+                    @Override
+                    public void onSuccess(DocumentReference documentReference) {
+                        Log.d(TAG, "DocumentSnapshot added with ID: " + documentReference.getId());
+                    }
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Log.w(TAG, "Error adding document", e);
+                    }
+                });
     }
-
 }
