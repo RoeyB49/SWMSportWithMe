@@ -11,6 +11,8 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+import com.google.firebase.auth.FirebaseAuth;
+
 import java.util.HashMap;
 import java.util.Map;
 
@@ -19,6 +21,7 @@ public class Activity_Creation extends AppCompatActivity {
     private Spinner activitiesSpinner;
     EditText date, time;
     FirebaseRef db = new FirebaseRef();
+    private FirebaseAuth mAuth = FirebaseAuth.getInstance();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,8 +45,8 @@ public class Activity_Creation extends AppCompatActivity {
                     activity.put("Activity name", activitiesSpinner.getSelectedItem().toString());
                     activity.put("Date", date.getText().toString());
                     activity.put("Time", time.getText().toString());
-
-                    db.addUser(activity, "Activities");
+                    activity.put("User", mAuth.getCurrentUser().getEmail().toString());
+                    db.addActivity(activity);
 
                     openHostPage();
                 }

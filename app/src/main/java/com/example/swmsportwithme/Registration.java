@@ -35,7 +35,8 @@ public class Registration extends AppCompatActivity {
     private RadioButton RB1, RB2;
     private CheckBox Football, Basketball, Swimming, Running, Tennis, Dogwalking;
     private RadioGroup ActivityType;
-    private FirebaseAuth mAuth;
+    private FirebaseAuth mAuth  = FirebaseAuth.getInstance();
+
 
 
     private boolean validateEmailAddress(EditText Email) {
@@ -158,7 +159,7 @@ public class Registration extends AppCompatActivity {
                     Map<String, Object> user = new HashMap<>();
                     user.put("Email", Email.getText().toString());
                     user.put("Password", Password.getText().toString());
-                    createAccount((String)user.get("Email"), (String)user.get("Password"));
+//                    createAccount((String)user.get("Email"), (String)user.get("Password"));
                     user.put("Birth date", Birthdate.getText().toString());
                     user.put("Full name", Fullname.getText().toString());
                     if (Gender.getCheckedRadioButtonId()!=-1) {
@@ -185,21 +186,20 @@ public class Registration extends AppCompatActivity {
                     }
                     user.put("Hobbies", hobbiesArr);
 
+                    createAccount((String)user.get("Email"), (String)user.get("Password"));
+
                     // Add a new document with a generated ID
                     FirebaseRef db = new FirebaseRef();
-                    mAuth = FirebaseAuth.getInstance();
+
                     if (ActivityType.getCheckedRadioButtonId()!=-1) {
                         if (RB2.getText().toString().equals("Joining an activity")) {
-                            db.addUser(user, "Join",mAuth.getUid());
+                            db.addUser(user, "Join");
                         } else {
-                            db.addUser(user, "Host",mAuth.getUid());
+                            db.addUser(user, "Host");
                         }
                     }
-                    createAccount((String)user.get("Email"), (String)user.get("Password"));
                     openMainpage();
                 }
-
-
             }
 
         });
@@ -207,19 +207,24 @@ public class Registration extends AppCompatActivity {
 
     private void createAccount(String email, String password) {
         // [START create_user_with_email]
+        System.out.println("---------------------------------------------> " + email);
+        System.out.println("---------------------------------------------> " +password);
+        System.out.println("---------------------------------------------> " + mAuth.getUid());
+
         mAuth.createUserWithEmailAndPassword(email, password)
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
                             // Sign in success, update UI with the signed-in user's information
+
                             Log.d(TAG, "createUserWithEmail:success");
                             FirebaseUser user = mAuth.getCurrentUser();
                         } else {
                             // If sign in fails, display a message to the user.
                             Log.w(TAG, "createUserWithEmail:failure", task.getException());
                             Toast.makeText(Registration.this, "Authentication failed.",
-                                    Toast.LENGTH_SHORT).show();
+                                    Toast.LENGTH_LONG).show();
                         }
                     }
                 });
