@@ -6,6 +6,29 @@
     android:layout_height="match_parent"
     tools:context=".Activity_Creation">
 
+    <Spinner
+        android:id="@+id/spinner6"
+        android:layout_width="242dp"
+        android:layout_height="34dp"
+        android:layout_marginTop="33dp"
+        android:layout_marginEnd="27dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/editTextTextEmailAddress2" />
+
+    <EditText
+        android:id="@+id/editTextTextEmailAddress2"
+        android:layout_width="240dp"
+        android:layout_height="49dp"
+        android:layout_marginTop="24dp"
+        android:layout_marginEnd="27dp"
+        android:autofillHints=""
+        android:ems="10"
+        android:hint="Date"
+        android:inputType="textEmailAddress"
+        android:textColorHint="#757575"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/Type_of_activity" />
+
     <TextView
         android:id="@+id/textView18"
         android:layout_width="234dp"
@@ -18,4 +41,48 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.039" />
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="62dp"
+        android:text="Type of activity"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView18" />
+
+    <Spinner
+        android:id="@+id/Type_of_activity"
+        android:layout_width="242dp"
+        android:layout_height="34dp"
+        android:layout_marginStart="31dp"
+        android:layout_marginTop="55dp"
+        android:layout_marginEnd="27dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/textView"
+        app:layout_constraintTop_toBottomOf="@+id/textView18" />
+
+    <TextView
+        android:id="@+id/textView5"
+        android:layout_width="43dp"
+        android:layout_height="20dp"
+        android:layout_marginStart="21dp"
+        android:layout_marginTop="128dp"
+        android:layout_marginEnd="79dp"
+        android:text="Time"
+        app:layout_constraintEnd_toStartOf="@+id/spinner6"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView" />
+
+    <Button
+        android:id="@+id/host_create_activity_confirm"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="60dp"
+        android:layout_marginBottom="112dp"
+        android:text="@string/confirm"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
