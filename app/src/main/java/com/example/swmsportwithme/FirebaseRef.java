@@ -37,4 +37,8 @@ public class FirebaseRef {
                 });
     }
 
+    public void getCurrentUser(){
+
+    }
+
 }

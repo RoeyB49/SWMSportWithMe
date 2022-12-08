@@ -6,21 +6,26 @@
     android:layout_height="match_parent"
     tools:context=".Activity_Creation">
 
-    <Spinner
-        android:id="@+id/spinner6"
-        android:layout_width="242dp"
-        android:layout_height="34dp"
-        android:layout_marginTop="33dp"
-        android:layout_marginEnd="27dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editTextTextEmailAddress2" />
-
     <EditText
-        android:id="@+id/editTextTextEmailAddress2"
+        android:id="@+id/host_activity_time"
         android:layout_width="240dp"
         android:layout_height="49dp"
-        android:layout_marginTop="24dp"
-        android:layout_marginEnd="27dp"
+        android:layout_marginTop="19dp"
+        android:layout_marginEnd="84dp"
+        android:autofillHints=""
+        android:ems="10"
+        android:hint="Time"
+        android:inputType="textEmailAddress"
+        android:textColorHint="#757575"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/host_activity_date" />
+
+    <EditText
+        android:id="@+id/host_activity_date"
+        android:layout_width="240dp"
+        android:layout_height="49dp"
+        android:layout_marginTop="32dp"
+        android:layout_marginEnd="84dp"
         android:autofillHints=""
         android:ems="10"
         android:hint="Date"
@@ -62,18 +67,6 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/textView"
         app:layout_constraintTop_toBottomOf="@+id/textView18" />
-
-    <TextView
-        android:id="@+id/textView5"
-        android:layout_width="43dp"
-        android:layout_height="20dp"
-        android:layout_marginStart="21dp"
-        android:layout_marginTop="128dp"
-        android:layout_marginEnd="79dp"
-        android:text="Time"
-        app:layout_constraintEnd_toStartOf="@+id/spinner6"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView" />
 
     <Button
         android:id="@+id/host_create_activity_confirm"
