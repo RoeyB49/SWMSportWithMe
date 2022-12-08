@@ -30,12 +30,6 @@ public class FirebaseRef {
     }
 
     public void addUser(Map<String, Object> user, String collectionPath) {
-//        Map<String, Object> data = new HashMap<>();
-//        data.put("capital", true);
-//
-//        db.collection("cities").document("BJ")
-//                .set(data, SetOptions.merge());
-
         db.collection(collectionPath).document(user.get("Email").toString())
                 .set(user)
                 .addOnSuccessListener(new OnSuccessListener<Void>() {
@@ -51,7 +45,6 @@ public class FirebaseRef {
                     }
                 });
     }
-
 
     public void addActivity(Map<String, Object> activity) {
         db.collection("Activities")
