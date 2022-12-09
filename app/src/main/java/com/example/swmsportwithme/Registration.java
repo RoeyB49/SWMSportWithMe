@@ -4,7 +4,10 @@ import static androidx.constraintlayout.helper.widget.MotionEffect.TAG;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.DialogFragment;
 
+import android.app.DatePickerDialog;
+import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -12,6 +15,7 @@ import android.util.Patterns;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
@@ -23,7 +27,12 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -37,6 +46,7 @@ public class Registration extends AppCompatActivity {
     private RadioGroup ActivityType;
     private FirebaseAuth mAuth  = FirebaseAuth.getInstance();
 
+    final static String DATE_FORMAT = "dd/MM/yyyy";
 
 
     private boolean validateEmailAddress(EditText Email) {
@@ -67,14 +77,28 @@ public class Registration extends AppCompatActivity {
             return true;
         }
     }
-    private boolean validateBirthdate() {
+    public static boolean isDateValid(String date)
+    {
+        try {
+            DateFormat df = new SimpleDateFormat(DATE_FORMAT);
+            df.setLenient(false);
+            df.parse(date);
+            return true;
+        } catch (ParseException e) {
+            return false;
+        }
+    }
+    private boolean validateBirthdate(){
         String val = Birthdate.getText().toString().trim();
         if (val.isEmpty()) {
             Birthdate.setError("Field can not be empty");
             return false;
-        } else {
+        } else if(!isDateValid(val)){
+            Birthdate.setError("Birth date is not valid!");
+            return false;
+        }else
             return true;
-        }
+
     }
     private boolean CheckPassword() {
         String val = Password.getText().toString().trim();
@@ -234,6 +258,5 @@ public class Registration extends AppCompatActivity {
         Intent intent = new Intent(this, MainActivity.class);
         startActivity(intent);
     }
-
 
 }
