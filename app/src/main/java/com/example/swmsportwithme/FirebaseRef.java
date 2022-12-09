@@ -15,6 +15,7 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.Map;
@@ -27,6 +28,7 @@ public class FirebaseRef {
     public FirebaseRef() {
         db = FirebaseFirestore.getInstance();
         mAuth = FirebaseAuth.getInstance();
+
     }
 
     public void addUser(Map<String, Object> user, String collectionPath) {
@@ -62,5 +64,24 @@ public class FirebaseRef {
                     }
                 });
     }
+
+//    public void getUser(String email){
+//        DocumentReference docRef = db.collection("cities").document("SF");
+//        docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+//            @Override
+//            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+//                if (task.isSuccessful()) {
+//                    DocumentSnapshot document = task.getResult();
+//                    if (document.exists()) {
+//                        Log.d(TAG, "DocumentSnapshot data: " + document.getData());
+//                    } else {
+//                        Log.d(TAG, "No such document");
+//                    }
+//                } else {
+//                    Log.d(TAG, "get failed with ", task.getException());
+//                }
+//            }
+//        });
+//    }
 
 }
