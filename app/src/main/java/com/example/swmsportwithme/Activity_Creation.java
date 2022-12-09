@@ -1,5 +1,7 @@
 package com.example.swmsportwithme;
 
+import static com.example.swmsportwithme.Registration.DATE_FORMAT;
+
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
@@ -9,12 +11,19 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.TimePicker;
 import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
 
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.time.format.DateTimeFormatter;
+import java.time.format.ResolverStyle;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.SimpleTimeZone;
 
 public class Activity_Creation extends AppCompatActivity {
     private String[] activities;
@@ -22,6 +31,8 @@ public class Activity_Creation extends AppCompatActivity {
     EditText date, time;
     FirebaseRef db = new FirebaseRef();
     private FirebaseAuth mAuth = FirebaseAuth.getInstance();
+    private EditText Birthdate;
+    final static String TIME_FORMAT = "HH:MM";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,8 +49,9 @@ public class Activity_Creation extends AppCompatActivity {
         confirm.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 // Check if all inputs are valid
-                if (validateActivity() && validateDate() && validateTime()) {
+                if (validateActivity() && validateBirthdate() && validateTime()) {
                     // Add to firebase
                     Map<String, Object> activity = new HashMap<>();
                     activity.put("Activity name", activitiesSpinner.getSelectedItem().toString());
@@ -66,18 +78,30 @@ public class Activity_Creation extends AppCompatActivity {
         }
         return true;
     }
-
-    private boolean validateDate() {
-        date = findViewById(R.id.host_activity_date);
-        String val = date.getText().toString().trim();
-        if (val.isEmpty()) {
-            date.setError("Field can not be empty");
-            return false;
-        } else {
+    public static boolean isDateValid(String date)
+    {
+        try {
+            DateFormat df = new SimpleDateFormat(DATE_FORMAT);
+            df.setLenient(false);
+            df.parse(date);
             return true;
+        } catch (ParseException e) {
+            return false;
         }
     }
+    private boolean validateBirthdate(){
 
+        String val = Birthdate.getText().toString().trim();
+        if (val.isEmpty()) {
+            Birthdate.setError("Field can not be empty");
+            return false;
+        } else if(!isDateValid(val)){
+            Birthdate.setError("Birth date is not valid!");
+            return false;
+        }else
+            return true;
+
+    }
     private boolean validateTime() {
         time = findViewById(R.id.host_activity_time);
         String val = time.getText().toString().trim();

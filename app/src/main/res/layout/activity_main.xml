@@ -7,9 +7,7 @@
     tools:context=".MainActivity">
 
     <EditText
-
         android:id="@+id/welcome_email"
-        android:id="@+id/inputEmail"
         android:layout_width="255dp"
         android:layout_height="51dp"
         android:layout_marginStart="58dp"
@@ -20,22 +18,14 @@
         android:hint="@string/email"
         android:inputType="textEmailAddress"
         android:textColorHint="#757575"
-
         app:layout_constraintBottom_toTopOf="@+id/welcome_password"
-
-        app:layout_constraintBottom_toTopOf="@+id/inputPassword"
-
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.0" />
 
     <EditText
-
         android:id="@+id/welcome_password"
-
-        android:id="@+id/inputPassword"
-
         android:layout_width="255dp"
         android:layout_height="51dp"
         android:layout_marginStart="58dp"
@@ -51,7 +41,7 @@
         app:layout_constraintStart_toStartOf="parent" />
 
     <Button
-        android:id="@+id/btnLogin"
+        android:id="@+id/login"
         android:layout_width="131dp"
         android:layout_height="71dp"
         android:layout_marginEnd="56dp"
@@ -69,20 +59,21 @@
         android:layout_marginBottom="316dp"
         android:text="@string/register"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/login"
         app:layout_constraintStart_toStartOf="parent" />
 
     <TextView
         android:id="@+id/textView3"
-        android:layout_width="192dp"
-        android:layout_height="53dp"
+        android:layout_width="248dp"
+        android:layout_height="50dp"
         android:text="@string/welcome_to"
         android:textSize="34sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.42"
+        app:layout_constraintHorizontal_bias="0.638"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.058" />
+        app:layout_constraintVertical_bias="0.042" />
 
     <TextView
         android:id="@+id/textView4"
@@ -92,9 +83,9 @@
         android:textSize="30dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.337"
+        app:layout_constraintHorizontal_bias="0.629"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.144" />
+        app:layout_constraintVertical_bias="0.135" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
