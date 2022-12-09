@@ -65,23 +65,5 @@ public class FirebaseRef {
                 });
     }
 
-//    public void getUser(String email){
-//        DocumentReference docRef = db.collection("cities").document("SF");
-//        docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
-//            @Override
-//            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-//                if (task.isSuccessful()) {
-//                    DocumentSnapshot document = task.getResult();
-//                    if (document.exists()) {
-//                        Log.d(TAG, "DocumentSnapshot data: " + document.getData());
-//                    } else {
-//                        Log.d(TAG, "No such document");
-//                    }
-//                } else {
-//                    Log.d(TAG, "get failed with ", task.getException());
-//                }
-//            }
-//        });
-//    }
 
 }

@@ -1,5 +1,7 @@
 package com.example.swmsportwithme;
 
+import static androidx.constraintlayout.helper.widget.MotionEffect.TAG;
+
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -18,12 +20,19 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.SignInMethodQueryResult;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
 
 public class MainActivity extends AppCompatActivity {
     private Button register;
     private Button login;
-    private EditText email, password;
+    public EditText email, password;
+    FirebaseRef db = new FirebaseRef();
     FirebaseAuth mAuth = FirebaseAuth.getInstance();
+    boolean flag = false;
+    boolean join = false;
+    boolean host = false;
 
 
     @Override
@@ -49,9 +58,9 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View view) {
                 email = (EditText) findViewById(R.id.welcome_email);
                 password = (EditText) findViewById(R.id.welcome_password);
-
                 if (validateEmailAddress(email) && validatePassword(password)) {
                     signIn(email.getText().toString(), password.getText().toString());
+
                 }
             }
         });
@@ -65,9 +74,11 @@ public class MainActivity extends AppCompatActivity {
                         if (task.isSuccessful()) {
                             // Sign in success, update UI with the signed-in user's information
 //                            Log.d("TAG", "signInWithEmail:success");
-                            System.out.println("---------------------------> signInWithEmail:success");
+                            Toast.makeText(MainActivity.this, "connected",
+                                    Toast.LENGTH_LONG).show();
                             FirebaseUser user = mAuth.getCurrentUser();
-                            openHost();
+                            getUserType("Join", email);
+                            getUserType("Host", email);
                         } else {
                             // If sign in fails, display a message to the user.
 //                            Log.w("TAG", "signInWithEmail:failure", task.getException());
@@ -77,6 +88,30 @@ public class MainActivity extends AppCompatActivity {
                         }
                     }
                 });
+    }
+
+    public void getUserType(String collectionPath, String email) {
+        DocumentReference docRef = db.db.collection(collectionPath).document(email);
+        docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                if (task.isSuccessful()) {
+                    DocumentSnapshot document = task.getResult();
+                    if (document.exists()) {
+                        Log.d(TAG, "DocumentSnapshot data: " + document.getData());
+                        if (collectionPath.equals("Join")) {
+                            openJoin();
+                        } else if (collectionPath.equals("Host")) {
+                            openHost();
+                        }
+                    } else {
+                        Log.d(TAG, "No such document");
+                    }
+                } else {
+                    Log.d(TAG, "get failed with ", task.getException());
+                }
+            }
+        });
     }
 
     @Override
@@ -95,11 +130,15 @@ public class MainActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
+    private void openJoin() {
+        Intent intent = new Intent(this, Activity_Guest_Page.class);
+        startActivity(intent);
+    }
 
     private boolean validateEmailAddress(EditText Email) {
         String emailInput = Email.getText().toString();
         if (!emailInput.isEmpty() && Patterns.EMAIL_ADDRESS.matcher(emailInput).matches()) {
-            Toast.makeText(this, "Congratulations! you have successfully signed up for SWM", Toast.LENGTH_SHORT).show();
+//            Toast.makeText(this, "valid email", Toast.LENGTH_SHORT).show();
             return true;
         } else {
             Toast.makeText(this, "Invalid Email please try again!", Toast.LENGTH_SHORT).show();
