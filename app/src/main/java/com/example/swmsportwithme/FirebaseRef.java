@@ -15,6 +15,7 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.Map;
@@ -27,10 +28,10 @@ public class FirebaseRef {
     public FirebaseRef() {
         db = FirebaseFirestore.getInstance();
         mAuth = FirebaseAuth.getInstance();
+
     }
 
     public void addUser(Map<String, Object> user, String collectionPath) {
-    
         db.collection(collectionPath).document(user.get("Email").toString())
                 .set(user)
                 .addOnSuccessListener(new OnSuccessListener<Void>() {
@@ -46,7 +47,6 @@ public class FirebaseRef {
                     }
                 });
     }
-
 
     public void addActivity(Map<String, Object> activity) {
         db.collection("Activities")
@@ -64,4 +64,6 @@ public class FirebaseRef {
                     }
                 });
     }
+
+
 }

@@ -20,13 +20,11 @@ import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Toast;
-
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -37,37 +35,36 @@ import java.util.HashMap;
 import java.util.Map;
 
 
-
 public class Registration extends AppCompatActivity {
     private EditText Email, Fullname, Birthdate, Password, RepeatPassword;
     private RadioGroup Gender;
     private RadioButton RB1, RB2;
     private CheckBox Football, Basketball, Swimming, Running, Tennis, Dogwalking;
     private RadioGroup ActivityType;
-    private FirebaseAuth mAuth  = FirebaseAuth.getInstance();
-
+    private FirebaseAuth mAuth = FirebaseAuth.getInstance();
     final static String DATE_FORMAT = "dd/MM/yyyy";
-
-
+    
     private boolean validateEmailAddress(EditText Email) {
-    String emailInput = Email.getText().toString();
-    if (!emailInput.isEmpty() && Patterns.EMAIL_ADDRESS.matcher(emailInput).matches()){
-        Toast.makeText(this, "Congratulations! you have successfully signed up for SWM", Toast.LENGTH_SHORT).show();
-        return true;
-    }else{
-        Toast.makeText(this, "Invalid Email please try again!", Toast.LENGTH_SHORT).show();
-        return false;
+        String emailInput = Email.getText().toString();
+        if (!emailInput.isEmpty() && Patterns.EMAIL_ADDRESS.matcher(emailInput).matches()) {
+            Toast.makeText(this, "Congratulations! you have successfully signed up for SWM", Toast.LENGTH_SHORT).show();
+            return true;
+        } else {
+            Toast.makeText(this, "Invalid Email please try again!", Toast.LENGTH_SHORT).show();
+            return false;
+        }
     }
-}
+
     private boolean validatePassword(EditText Password) {
         String PasswordInput = Password.getText().toString();
-        if (!PasswordInput.isEmpty() && (Password.getText().toString().equals(RepeatPassword.getText().toString()))&&PasswordInput.length()>5){
+        if (!PasswordInput.isEmpty() && (Password.getText().toString().equals(RepeatPassword.getText().toString())) && PasswordInput.length() > 5) {
             return true;
-        }else{
+        } else {
             Toast.makeText(this, "Passwords does not match or too short, try again!", Toast.LENGTH_SHORT).show();
             return false;
         }
     }
+
     private boolean validateFullName() {
         String val = Fullname.getText().toString().trim();
         if (val.isEmpty()) {
@@ -77,6 +74,8 @@ public class Registration extends AppCompatActivity {
             return true;
         }
     }
+
+    private boolean validateBirthdate() {
     public static boolean isDateValid(String date)
     {
         try {
@@ -89,6 +88,7 @@ public class Registration extends AppCompatActivity {
         }
     }
     private boolean validateBirthdate(){
+
         String val = Birthdate.getText().toString().trim();
         if (val.isEmpty()) {
             Birthdate.setError("Field can not be empty");
@@ -100,6 +100,7 @@ public class Registration extends AppCompatActivity {
             return true;
 
     }
+
     private boolean CheckPassword() {
         String val = Password.getText().toString().trim();
         if (val.isEmpty()) {
@@ -109,6 +110,7 @@ public class Registration extends AppCompatActivity {
             return true;
         }
     }
+
     private boolean validateRepeatPassword() {
         String val = RepeatPassword.getText().toString().trim();
         if (val.isEmpty()) {
@@ -118,9 +120,10 @@ public class Registration extends AppCompatActivity {
             return true;
         }
     }
+
     private boolean validateGender() {
         Gender = (RadioGroup) findViewById(R.id.Genders);
-        if (Gender.getCheckedRadioButtonId()==-1) {
+        if (Gender.getCheckedRadioButtonId() == -1) {
             Toast.makeText(this, "Please Select a Gender", Toast.LENGTH_SHORT).show();
             return false;
         } else {
@@ -129,8 +132,8 @@ public class Registration extends AppCompatActivity {
     }
 
     private boolean validateActivityJoinOrHost() {
-        ActivityType = (RadioGroup)findViewById(R.id.Activity_JoinOrHost);
-        if (ActivityType.getCheckedRadioButtonId()==-1) {
+        ActivityType = (RadioGroup) findViewById(R.id.Activity_JoinOrHost);
+        if (ActivityType.getCheckedRadioButtonId() == -1) {
             Toast.makeText(this, "Please make your choice to be a Host or a Guest.", Toast.LENGTH_SHORT).show();
             return false;
         } else {
@@ -141,7 +144,7 @@ public class Registration extends AppCompatActivity {
 
     private boolean validateHobbies() {
 
-        if (Football.isChecked()||Basketball.isChecked()||Swimming.isChecked()||Running.isChecked()||Dogwalking.isChecked()||Tennis.isChecked()) {
+        if (Football.isChecked() || Basketball.isChecked() || Swimming.isChecked() || Running.isChecked() || Dogwalking.isChecked() || Tennis.isChecked()) {
             return true;
         } else {
             Toast.makeText(this, "You have to choose at least one hobby to proceed!", Toast.LENGTH_SHORT).show();
@@ -169,24 +172,24 @@ public class Registration extends AppCompatActivity {
                 Dogwalking = (CheckBox) findViewById(R.id.DogWalk_Registration);
                 Tennis = (CheckBox) findViewById(R.id.Tennis_Registration);
                 Gender = (RadioGroup) findViewById(R.id.Genders);
-                if (Gender.getCheckedRadioButtonId()!=-1) {
+                if (Gender.getCheckedRadioButtonId() != -1) {
                     int selectedGenderId = Gender.getCheckedRadioButtonId();
                     RB1 = (RadioButton) findViewById(selectedGenderId);
                 }
                 ActivityType = (RadioGroup) findViewById(R.id.Activity_JoinOrHost);
-                if (ActivityType.getCheckedRadioButtonId()!=-1) {
+                if (ActivityType.getCheckedRadioButtonId() != -1) {
                     int selectedActivityId = ActivityType.getCheckedRadioButtonId();
                     RB2 = (RadioButton) findViewById(selectedActivityId);
                 }
-                if(validateActivityJoinOrHost()&&validateGender()&&validatePassword(Password)&&validateFullName()&&validateBirthdate()&&CheckPassword()&&validateRepeatPassword()&&
-                        validateHobbies()&&validateEmailAddress(Email)) {
+                if (validateActivityJoinOrHost() && validateGender() && validatePassword(Password) && validateFullName() && validateBirthdate() && CheckPassword() && validateRepeatPassword() &&
+                        validateHobbies() && validateEmailAddress(Email)) {
                     Map<String, Object> user = new HashMap<>();
                     user.put("Email", Email.getText().toString());
                     user.put("Password", Password.getText().toString());
 //                    createAccount((String)user.get("Email"), (String)user.get("Password"));
                     user.put("Birth date", Birthdate.getText().toString());
                     user.put("Full name", Fullname.getText().toString());
-                    if (Gender.getCheckedRadioButtonId()!=-1) {
+                    if (Gender.getCheckedRadioButtonId() != -1) {
                         user.put("Gender", RB1.getText().toString());
                     }
                     ArrayList<String> hobbiesArr = new ArrayList<>();
@@ -210,12 +213,12 @@ public class Registration extends AppCompatActivity {
                     }
                     user.put("Hobbies", hobbiesArr);
 
-                    createAccount((String)user.get("Email"), (String)user.get("Password"));
+                    createAccount((String) user.get("Email"), (String) user.get("Password"));
 
                     // Add a new document with a generated ID
                     FirebaseRef db = new FirebaseRef();
 
-                    if (ActivityType.getCheckedRadioButtonId()!=-1) {
+                    if (ActivityType.getCheckedRadioButtonId() != -1) {
                         if (RB2.getText().toString().equals("Joining an activity")) {
                             db.addUser(user, "Join");
                         } else {
@@ -231,10 +234,6 @@ public class Registration extends AppCompatActivity {
 
     private void createAccount(String email, String password) {
         // [START create_user_with_email]
-        System.out.println("---------------------------------------------> " + email);
-        System.out.println("---------------------------------------------> " +password);
-        System.out.println("---------------------------------------------> " + mAuth.getUid());
-
         mAuth.createUserWithEmailAndPassword(email, password)
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                     @Override
@@ -254,9 +253,11 @@ public class Registration extends AppCompatActivity {
                 });
         // [END create_user_with_email]
     }
+
     private void openMainpage() {
         Intent intent = new Intent(this, MainActivity.class);
         startActivity(intent);
     }
 
 }
+

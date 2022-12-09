@@ -293,6 +293,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
 
+
     <androidx.constraintlayout.widget.Group
         android:id="@+id/group"
         android:layout_width="wrap_content"
@@ -305,11 +306,6 @@
         android:layout_height="wrap_content"
         app:constraint_referenced_ids="football_Registration,Swim_Registration,DogWalk_Registration,Basketball_Registration,Running_Registration,Tennis_Registration" />
 
-    <TextView
-        android:id="@+id/Email_Confirm"
-        android:layout_width="243dp"
-        android:layout_height="29dp"
-        tools:layout_editor_absoluteX="31dp"
-        tools:layout_editor_absoluteY="158dp" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
