@@ -23,6 +23,7 @@ import java.time.format.DateTimeFormatter;
 import java.time.format.ResolverStyle;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
 import java.util.SimpleTimeZone;
 
 public class Activity_Creation extends AppCompatActivity {
@@ -31,8 +32,6 @@ public class Activity_Creation extends AppCompatActivity {
     EditText date, time;
     FirebaseRef db = new FirebaseRef();
     private FirebaseAuth mAuth = FirebaseAuth.getInstance();
-    private EditText Birthdate;
-    final static String TIME_FORMAT = "HH:MM";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,7 +56,8 @@ public class Activity_Creation extends AppCompatActivity {
                     activity.put("Activity name", activitiesSpinner.getSelectedItem().toString());
                     activity.put("Date", date.getText().toString());
                     activity.put("Time", time.getText().toString());
-                    activity.put("User", mAuth.getCurrentUser().getEmail().toString());
+                    System.out.println("----------------------------------> " + mAuth.getCurrentUser());
+                    activity.put("User", Objects.requireNonNull(mAuth.getCurrentUser()).getEmail());
                     db.addActivity(activity);
 
                     openHostPage();
@@ -90,13 +90,13 @@ public class Activity_Creation extends AppCompatActivity {
         }
     }
     private boolean validateBirthdate(){
-
-        String val = Birthdate.getText().toString().trim();
+        date = findViewById(R.id.host_activity_date);
+        String val = date.getText().toString().trim();
         if (val.isEmpty()) {
-            Birthdate.setError("Field can not be empty");
+            date.setError("Field can not be empty");
             return false;
         } else if(!isDateValid(val)){
-            Birthdate.setError("Birth date is not valid!");
+            date.setError("Birth date is not valid!");
             return false;
         }else
             return true;

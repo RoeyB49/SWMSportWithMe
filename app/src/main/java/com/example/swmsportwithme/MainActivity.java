@@ -115,11 +115,11 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-    @Override
-    protected void onStop() {
-        super.onStop();
-        mAuth.signOut();
-    }
+//    @Override
+//    protected void onStop() {
+//        super.onStop();
+//        mAuth.signOut();
+//    }
 
     private void openRegistrationScreen() {
         Intent intent = new Intent(this, Registration.class);
