@@ -24,6 +24,8 @@ import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 
+import java.util.Objects;
+
 public class MainActivity extends AppCompatActivity {
     private Button register;
     private Button login;
@@ -98,9 +100,9 @@ public class MainActivity extends AppCompatActivity {
                     DocumentSnapshot document = task.getResult();
                     if (document.exists()) {
                         Log.d(TAG, "DocumentSnapshot data: " + document.getData());
-                        if (document.get("Type").equals("Join")){
+                        if (Objects.equals(document.get("Type"), "Join")){
                             openJoin();
-                        } else if (document.get("Type").equals("Host")) {
+                        } else if (Objects.equals(document.get("Type"), "Host")) {
                             openHost();
                         }
                     } else {
