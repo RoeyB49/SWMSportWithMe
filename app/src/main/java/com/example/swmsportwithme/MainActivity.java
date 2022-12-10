@@ -77,8 +77,7 @@ public class MainActivity extends AppCompatActivity {
                             Toast.makeText(MainActivity.this, "connected",
                                     Toast.LENGTH_LONG).show();
                             FirebaseUser user = mAuth.getCurrentUser();
-                            getUserType("Join", email);
-                            getUserType("Host", email);
+                            getUserType("Users", email);
                         } else {
                             // If sign in fails, display a message to the user.
 //                            Log.w("TAG", "signInWithEmail:failure", task.getException());
@@ -99,9 +98,9 @@ public class MainActivity extends AppCompatActivity {
                     DocumentSnapshot document = task.getResult();
                     if (document.exists()) {
                         Log.d(TAG, "DocumentSnapshot data: " + document.getData());
-                        if (collectionPath.equals("Join")) {
+                        if (document.get("Type").equals("Join")){
                             openJoin();
-                        } else if (collectionPath.equals("Host")) {
+                        } else if (document.get("Type").equals("Host")) {
                             openHost();
                         }
                     } else {
