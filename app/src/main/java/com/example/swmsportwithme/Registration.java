@@ -39,7 +39,7 @@ public class Registration extends AppCompatActivity {
     private RadioGroup ActivityType;
     private FirebaseAuth mAuth = FirebaseAuth.getInstance();
     final static String DATE_FORMAT = "dd/MM/yyyy";
-    
+
     private boolean validateEmailAddress(EditText Email) {
         String emailInput = Email.getText().toString();
         if (!emailInput.isEmpty() && Patterns.EMAIL_ADDRESS.matcher(emailInput).matches()) {
@@ -71,8 +71,7 @@ public class Registration extends AppCompatActivity {
         }
     }
 
-    public static boolean isDateValid(String date)
-    {
+    public static boolean isDateValid(String date) {
         try {
             DateFormat df = new SimpleDateFormat(DATE_FORMAT);
             df.setLenient(false);
@@ -82,16 +81,17 @@ public class Registration extends AppCompatActivity {
             return false;
         }
     }
-    private boolean validateBirthdate(){
+
+    private boolean validateBirthdate() {
 
         String val = Birthdate.getText().toString().trim();
         if (val.isEmpty()) {
             Birthdate.setError("Field can not be empty");
             return false;
-        } else if(!isDateValid(val)){
+        } else if (!isDateValid(val)) {
             Birthdate.setError("Birth date is not valid!");
             return false;
-        }else
+        } else
             return true;
 
     }
@@ -212,13 +212,17 @@ public class Registration extends AppCompatActivity {
 
                     // Add a new document with a generated ID
                     FirebaseRef db = new FirebaseRef();
-
+                    HashMap<String, Object> userType = new HashMap<>();
                     if (ActivityType.getCheckedRadioButtonId() != -1) {
                         if (RB2.getText().toString().equals("Joining an activity")) {
                             db.addUser(user, "Join");
+                            userType.put("Type", "Join");
                         } else {
                             db.addUser(user, "Host");
+                            userType.put("Type", "Host");
                         }
+                        userType.put("Email", Email.getText().toString());
+                        db.addUser(userType, "Users");
                     }
                     openMainpage();
                 }
