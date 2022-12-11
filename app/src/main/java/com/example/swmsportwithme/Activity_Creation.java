@@ -37,7 +37,7 @@ public class Activity_Creation extends AppCompatActivity {
     private Spinner activitiesSpinner;
     EditText date, time;
     FirebaseRef db = new FirebaseRef();
-    protected FirebaseFirestore dbfs = FirebaseFirestore.getInstance();;
+    protected FirebaseFirestore dbfs = FirebaseFirestore.getInstance();
     private FirebaseAuth mAuth = FirebaseAuth.getInstance();
 
     @Override
