@@ -1,11 +1,14 @@
 package com.example.swmsportwithme;
 
+import static androidx.constraintlayout.helper.widget.MotionEffect.TAG;
 import static com.example.swmsportwithme.Registration.DATE_FORMAT;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -14,7 +17,10 @@ import android.widget.Spinner;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.text.DateFormat;
 import java.text.ParseException;
@@ -31,6 +37,7 @@ public class Activity_Creation extends AppCompatActivity {
     private Spinner activitiesSpinner;
     EditText date, time;
     FirebaseRef db = new FirebaseRef();
+    protected FirebaseFirestore dbfs=FirebaseFirestore.getInstance();;
     private FirebaseAuth mAuth = FirebaseAuth.getInstance();
 
     @Override
@@ -46,9 +53,10 @@ public class Activity_Creation extends AppCompatActivity {
 
         Button confirm = (Button) findViewById(R.id.host_create_activity_confirm);
         confirm.setOnClickListener(new View.OnClickListener() {
-            @Override
             public void onClick(View v) {
-
+//                DocumentReference messageRef = db
+//                        .collection("rooms").document("roomA")
+//                        .collection("messages").document("message1");
                 // Check if all inputs are valid
                 if (validateActivity() && validateBirthdate() && validateTime()) {
                     // Add to firebase
@@ -59,7 +67,7 @@ public class Activity_Creation extends AppCompatActivity {
                     System.out.println("----------------------------------> " + mAuth.getCurrentUser());
                     activity.put("User", Objects.requireNonNull(mAuth.getCurrentUser()).getEmail());
                     db.addActivity(activity);
-
+                    addUser(activity);
                     openHostPage();
                 }
             }
@@ -111,6 +119,23 @@ public class Activity_Creation extends AppCompatActivity {
         } else {
             return true;
         }
+    }
+
+    public void addUser(Map<String, Object> user) {
+        dbfs.collection("Host").document(user.get("Email").toString()).collection("Activities").document(user.get("Activity name").toString())
+                .set(user)
+                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void aVoid) {
+                        Log.d(TAG, "DocumentSnapshot successfully written!");
+                    }
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Log.w(TAG, "Error writing document", e);
+                    }
+                });
     }
 
 }
