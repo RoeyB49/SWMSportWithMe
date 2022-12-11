@@ -5,6 +5,7 @@ import static androidx.constraintlayout.helper.widget.MotionEffect.TAG;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -13,6 +14,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
@@ -83,8 +85,21 @@ public class Host_Activity_Page extends AppCompatActivity {
             public void onComplete(@NonNull Task<QuerySnapshot> task) {
                 if (task.isSuccessful()) {
                     for (QueryDocumentSnapshot document : task.getResult()) {
-//                        document.getReference().delete();
                         if (document.getString("Activity name").equals(strArr[0]) && document.getString("Date").equals(strArr[1]) && document.getString("Time").equals(strArr[2])) {
+
+                            CollectionReference participants = document.getReference().collection("Participants");
+                            participants.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                                @Override
+                                public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                                    if (task.isSuccessful()) {
+                                        for (QueryDocumentSnapshot document : task.getResult()) {
+                                            deleteFromJoin(document.get("Email").toString(), strArr);
+                                            sendEmail(document.get("Email").toString(), strArr);
+                                        }
+                                    }
+                                }
+                            });
+
                             document.getReference().delete();
                             document.getReference().delete();
                         }
@@ -92,17 +107,51 @@ public class Host_Activity_Page extends AppCompatActivity {
                 }
             }
         });
+    }
 
-        // delete activity at Join collection
-        activities = db.collection("Join");
+    private void sendEmail(String sendTo, String[] strArr) {
+        Intent email = new Intent(Intent.ACTION_SEND);
+        email.putExtra(Intent.EXTRA_EMAIL, new String[]{ sendTo});
+        email.putExtra(Intent.EXTRA_SUBJECT, "SWM - Activity Deletion");
+        email.putExtra(Intent.EXTRA_TEXT, "Activity " + strArr[0] + ", Date: " + strArr[1] + ", Time: " + strArr[2] + " is cancelled");
+
+//need this to prompts email client only
+        email.setType("message/rfc822");
+
+        startActivity(Intent.createChooser(email, "Choose an Email client :"));
+
+
+//        Log.i("Send email", "");
+//
+//        String[] TO = {email};
+//        String[] CC = {"tamar.d154@gmail.com"};
+//        Intent emailIntent = new Intent(Intent.ACTION_SEND);
+//        emailIntent.setData(Uri.parse("mailto:"));
+//        emailIntent.setType("text/plain");
+//
+//        emailIntent.putExtra(Intent.EXTRA_EMAIL, TO);
+//        emailIntent.putExtra(Intent.EXTRA_CC, CC);
+//        emailIntent.putExtra(Intent.EXTRA_SUBJECT, "SWM - Activity Deletion");
+//        emailIntent.putExtra(Intent.EXTRA_TEXT, "Activity " + strArr[0] + ", Date: " + strArr[1] + ", Time: " + strArr[2] + " is cancelled");
+//
+//        try {
+//            startActivity(Intent.createChooser(emailIntent, "Send mail..."));
+//            finish();
+//            Log.i("Finished sending email.", "");
+//        } catch (android.content.ActivityNotFoundException ex) {
+//            Toast.makeText(Host_Activity_Page.this,
+//                    "There is no email client installed.", Toast.LENGTH_SHORT).show();
+//        }
+    }
+
+    private void deleteFromJoin(String email, String[] strArr) {
+        CollectionReference activities = db.collection("Join").document(email).collection("Activities");
         activities.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
             @Override
             public void onComplete(@NonNull Task<QuerySnapshot> task) {
                 if (task.isSuccessful()) {
                     for (QueryDocumentSnapshot document : task.getResult()) {
-//                        document.getReference().delete();
                         if (document.getString("Activity name").equals(strArr[0]) && document.getString("Date").equals(strArr[1]) && document.getString("Time").equals(strArr[2])) {
-                            document.getReference().delete();
                             document.getReference().delete();
                         }
                     }
