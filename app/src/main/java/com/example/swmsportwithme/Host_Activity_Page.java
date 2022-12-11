@@ -22,13 +22,16 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
 import org.checkerframework.checker.nullness.qual.NonNull;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class Host_Activity_Page extends AppCompatActivity {
     private TextView hostName;
@@ -60,7 +63,7 @@ public class Host_Activity_Page extends AppCompatActivity {
             public void onClick(View v) {
                 activitiesSpinner.getSelectedItem();
                 String selectedActivity = activitiesSpinner.getSelectedItem().toString();
-                String[] strArr = selectedActivity.trim().split(",");
+                String[] strArr = selectedActivity.replaceAll(" ", "").split(",");
                 deleteActivity(strArr);
                 setOngoingActivities();
 
@@ -70,7 +73,42 @@ public class Host_Activity_Page extends AppCompatActivity {
 
     private void deleteActivity(String[] strArr) {
         db.collection("Host").document(user.getEmail().toString()).collection("Activities").document(strArr[0]).delete();
-        // delete activity at join.
+        db.collection("Join").document(user.getEmail().toString()).collection("Activities").document(strArr[0]).delete();
+
+
+        // delete activity at Activities collection
+        CollectionReference activities = db.collection("Activities");
+        activities.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                if (task.isSuccessful()) {
+                    for (QueryDocumentSnapshot document : task.getResult()) {
+//                        document.getReference().delete();
+                        if (document.getString("Activity name").equals(strArr[0]) && document.getString("Date").equals(strArr[1]) && document.getString("Time").equals(strArr[2])) {
+                            document.getReference().delete();
+                            document.getReference().delete();
+                        }
+                    }
+                }
+            }
+        });
+
+        // delete activity at Join collection
+        activities = db.collection("Join");
+        activities.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                if (task.isSuccessful()) {
+                    for (QueryDocumentSnapshot document : task.getResult()) {
+//                        document.getReference().delete();
+                        if (document.getString("Activity name").equals(strArr[0]) && document.getString("Date").equals(strArr[1]) && document.getString("Time").equals(strArr[2])) {
+                            document.getReference().delete();
+                            document.getReference().delete();
+                        }
+                    }
+                }
+            }
+        });
     }
 
     private void openCreation() {
