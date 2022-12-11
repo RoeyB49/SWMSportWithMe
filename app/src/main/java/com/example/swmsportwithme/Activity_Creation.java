@@ -64,7 +64,6 @@ public class Activity_Creation extends AppCompatActivity {
                     activity.put("Activity name", activitiesSpinner.getSelectedItem().toString());
                     activity.put("Date", date.getText().toString());
                     activity.put("Time", time.getText().toString());
-                    System.out.println("----------------------------------> " + mAuth.getCurrentUser());
                     activity.put("User", Objects.requireNonNull(mAuth.getCurrentUser()).getEmail());
                     db.addActivity(activity);
                     db.addHostActivities(activity);

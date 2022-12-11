@@ -18,13 +18,14 @@ import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 
+import java.util.HashMap;
 import java.util.Map;
 
 
 public class FirebaseRef {
     protected FirebaseFirestore db;
-    private FirebaseAuth mAuth;
-    private FirebaseUser currUser;
+    protected FirebaseAuth mAuth;
+    protected FirebaseUser currUser;
 
     public FirebaseRef() {
         db = FirebaseFirestore.getInstance();
@@ -34,6 +35,9 @@ public class FirebaseRef {
     }
 
     public void addUser(Map<String, Object> user, String collectionPath) {
+        Map<String, String> map = new HashMap<>();
+        map.put("a", "a");
+        user.put("User", map);
         db.collection(collectionPath).document(user.get("Email").toString())
                 .set(user)
                 .addOnSuccessListener(new OnSuccessListener<Void>() {
@@ -100,5 +104,22 @@ public class FirebaseRef {
                     }
                 });
     }
+
+//    public void updateJoinedUsers(Map<String, Object> user, String activity) {
+//        db.collection("Activities").document(activity).collection("Participants")
+//                .add(user)
+//                .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+//                    @Override
+//                    public void onSuccess(DocumentReference documentReference) {
+//                        Log.d(TAG, "DocumentSnapshot added with ID: " + documentReference.getId());
+//                    }
+//                })
+//                .addOnFailureListener(new OnFailureListener() {
+//                    @Override
+//                    public void onFailure(@NonNull Exception e) {
+//                        Log.w(TAG, "Error adding document", e);
+//                    }
+//                });
+//    }
 
 }
