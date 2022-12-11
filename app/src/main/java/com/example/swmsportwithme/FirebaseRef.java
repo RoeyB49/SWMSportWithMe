@@ -24,10 +24,12 @@ import java.util.Map;
 public class FirebaseRef {
     protected FirebaseFirestore db;
     private FirebaseAuth mAuth;
+    private FirebaseUser currUser;
 
     public FirebaseRef() {
         db = FirebaseFirestore.getInstance();
         mAuth = FirebaseAuth.getInstance();
+        currUser = mAuth.getCurrentUser();
 
     }
 
@@ -65,5 +67,21 @@ public class FirebaseRef {
                 });
     }
 
+    public void addHostActivities(Map<String, Object> user) {
+        db.collection("Host").document(currUser.getEmail().toString()).collection("Activities").document(user.get("Activity name").toString())
+                .set(user)
+                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void aVoid) {
+                        Log.d(TAG, "DocumentSnapshot successfully written!");
+                    }
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Log.w(TAG, "Error writing document", e);
+                    }
+                });
+    }
 
 }

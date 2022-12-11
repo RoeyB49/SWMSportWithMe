@@ -37,7 +37,7 @@ public class Activity_Creation extends AppCompatActivity {
     private Spinner activitiesSpinner;
     EditText date, time;
     FirebaseRef db = new FirebaseRef();
-    protected FirebaseFirestore dbfs=FirebaseFirestore.getInstance();;
+    protected FirebaseFirestore dbfs = FirebaseFirestore.getInstance();;
     private FirebaseAuth mAuth = FirebaseAuth.getInstance();
 
     @Override
@@ -67,7 +67,7 @@ public class Activity_Creation extends AppCompatActivity {
                     System.out.println("----------------------------------> " + mAuth.getCurrentUser());
                     activity.put("User", Objects.requireNonNull(mAuth.getCurrentUser()).getEmail());
                     db.addActivity(activity);
-                    addUser(activity);
+                    db.addHostActivities(activity);
                     openHostPage();
                 }
             }
@@ -119,23 +119,6 @@ public class Activity_Creation extends AppCompatActivity {
         } else {
             return true;
         }
-    }
-
-    public void addUser(Map<String, Object> user) {
-        dbfs.collection("Host").document(user.get("Email").toString()).collection("Activities").document(user.get("Activity name").toString())
-                .set(user)
-                .addOnSuccessListener(new OnSuccessListener<Void>() {
-                    @Override
-                    public void onSuccess(Void aVoid) {
-                        Log.d(TAG, "DocumentSnapshot successfully written!");
-                    }
-                })
-                .addOnFailureListener(new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception e) {
-                        Log.w(TAG, "Error writing document", e);
-                    }
-                });
     }
 
 }
