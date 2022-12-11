@@ -84,4 +84,21 @@ public class FirebaseRef {
                 });
     }
 
+    public void addJoinActivities(Map<String, Object> user) {
+        db.collection("Join").document(currUser.getEmail().toString()).collection("Activities").document(user.get("Activity name").toString())
+                .set(user)
+                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void aVoid) {
+                        Log.d(TAG, "DocumentSnapshot successfully written!");
+                    }
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Log.w(TAG, "Error writing document", e);
+                    }
+                });
+    }
+
 }
