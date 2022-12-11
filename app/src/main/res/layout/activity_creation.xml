@@ -7,20 +7,6 @@
     tools:context=".Activity_Creation">
 
     <EditText
-        android:id="@+id/host_activity_time"
-        android:layout_width="240dp"
-        android:layout_height="49dp"
-        android:layout_marginTop="19dp"
-        android:layout_marginEnd="84dp"
-        android:autofillHints=""
-        android:ems="10"
-        android:hint="Time"
-        android:inputType="textEmailAddress"
-        android:textColorHint="#757575"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/host_activity_date" />
-
-    <EditText
         android:id="@+id/host_activity_date"
         android:layout_width="240dp"
         android:layout_height="49dp"
@@ -77,5 +63,17 @@
         android:text="@string/confirm"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
+
+    <EditText
+        android:id="@+id/host_activity_time"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="36dp"
+        android:layout_marginEnd="112dp"
+        android:ems="10"
+        android:hint="Time"
+        android:inputType="time"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/host_activity_date" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
