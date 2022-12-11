@@ -39,9 +39,25 @@ public class Host_Activity_Page extends AppCompatActivity {
         hostName = (TextView) findViewById(R.id.host_name);
         hostName.setText(user.getEmail());
 
-        // Get ongoing activities
-//        FirebaseFirestore rootRef = FirebaseFirestore.getInstance();
-        CollectionReference subjectsRef = db.collection("Activities");
+        setOngoingActivities();
+
+        Button create = (Button) findViewById(R.id.create);
+        create.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                openCreation();
+            }
+        });
+    }
+
+    private void openCreation() {
+        Intent intent = new Intent(this, Activity_Creation.class);
+        startActivity(intent);
+    }
+
+    private void setOngoingActivities(){
+        //        FirebaseFirestore rootRef = FirebaseFirestore.getInstance();
+        CollectionReference subjectsRef = db.collection("Host").document(user.getEmail().toString()).collection("Activities");
 //        Spinner spinner = (Spinner) findViewById(R.id.spinner);
         activitiesSpinner = (Spinner) findViewById(R.id.ongoing_activities);
         List<String> subjects = new ArrayList<>();
@@ -61,19 +77,6 @@ public class Host_Activity_Page extends AppCompatActivity {
             }
         });
         activitiesSpinner.setAdapter(adapter);
-
-        Button create = (Button) findViewById(R.id.create);
-        create.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                openCreation();
-            }
-        });
-    }
-
-    private void openCreation() {
-        Intent intent = new Intent(this, Activity_Creation.class);
-        startActivity(intent);
     }
 
 
