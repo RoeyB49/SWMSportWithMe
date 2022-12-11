@@ -1,9 +1,12 @@
 package com.example.swmsportwithme;
 
+import static androidx.constraintlayout.helper.widget.MotionEffect.TAG;
+
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -12,6 +15,8 @@ import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -48,6 +53,24 @@ public class Host_Activity_Page extends AppCompatActivity {
                 openCreation();
             }
         });
+
+        Button delete = (Button) findViewById(R.id.delete_activity);
+        delete.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                activitiesSpinner.getSelectedItem();
+                String selectedActivity = activitiesSpinner.getSelectedItem().toString();
+                String[] strArr = selectedActivity.trim().split(",");
+                deleteActivity(strArr);
+                setOngoingActivities();
+
+            }
+        });
+    }
+
+    private void deleteActivity(String[] strArr) {
+        db.collection("Host").document(user.getEmail().toString()).collection("Activities").document(strArr[0]).delete();
+        // delete activity at join.
     }
 
     private void openCreation() {
@@ -56,14 +79,11 @@ public class Host_Activity_Page extends AppCompatActivity {
     }
 
     private void setOngoingActivities() {
-        //        FirebaseFirestore rootRef = FirebaseFirestore.getInstance();
         CollectionReference subjectsRef = db.collection("Host").document(user.getEmail().toString()).collection("Activities");
-//        Spinner spinner = (Spinner) findViewById(R.id.spinner);
         activitiesSpinner = (Spinner) findViewById(R.id.ongoing_activities);
         List<String> subjects = new ArrayList<>();
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, subjects);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-//        activitiesSpinner.setAdapter(adapter);
         subjectsRef.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
             @Override
             public void onComplete(@NonNull Task<QuerySnapshot> task) {
