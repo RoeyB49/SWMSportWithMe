@@ -55,7 +55,7 @@ public class Host_Activity_Page extends AppCompatActivity {
         startActivity(intent);
     }
 
-    private void setOngoingActivities(){
+    private void setOngoingActivities() {
         //        FirebaseFirestore rootRef = FirebaseFirestore.getInstance();
         CollectionReference subjectsRef = db.collection("Host").document(user.getEmail().toString()).collection("Activities");
 //        Spinner spinner = (Spinner) findViewById(R.id.spinner);
@@ -70,6 +70,8 @@ public class Host_Activity_Page extends AppCompatActivity {
                 if (task.isSuccessful()) {
                     for (QueryDocumentSnapshot document : task.getResult()) {
                         String subject = document.getString("Activity name");
+                        subject += ", " + document.getString("Date");
+                        subject += ", " + document.getString("Time");
                         subjects.add(subject);
                     }
                     adapter.notifyDataSetChanged();
