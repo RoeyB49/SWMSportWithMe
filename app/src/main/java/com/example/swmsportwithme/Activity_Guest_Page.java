@@ -5,7 +5,6 @@ import static androidx.constraintlayout.helper.widget.MotionEffect.TAG;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -21,7 +20,6 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.CollectionReference;
-import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
@@ -30,7 +28,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Objects;
 
 public class Activity_Guest_Page extends AppCompatActivity {
     private TextView guestName;
@@ -52,7 +49,7 @@ public class Activity_Guest_Page extends AppCompatActivity {
         guestName.setText(user.getEmail());
 
         activities = new String[]{"Choose an activity", "Football", "Basketball", "Running", "Swimming", "Dog walking", "Tennis"};
-        activitiesSpinner = (Spinner) findViewById(R.id.spinner3);
+        activitiesSpinner = (Spinner) findViewById(R.id.Available_Activities);
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, activities);
         activitiesSpinner.setAdapter(adapter);
         setAvailableActivities();
@@ -102,7 +99,12 @@ public class Activity_Guest_Page extends AppCompatActivity {
     private void setAvailableActivities() {
 
         CollectionReference subjectsRef = db.collection("Activities");
+
         activitiesSpinner = (Spinner) findViewById(R.id.spinner3);
+
+//        Spinner spinner = (Spinner) findViewById(R.id.spinner);
+        activitiesSpinner = (Spinner) findViewById(R.id.Available_Activities);
+
         List<String> subjects = new ArrayList<>();
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, subjects);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);

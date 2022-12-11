@@ -10,9 +10,11 @@
         android:id="@+id/textView14"
         android:layout_width="234dp"
         android:layout_height="48dp"
+        android:layout_marginEnd="177dp"
+        android:layout_marginBottom="683dp"
         android:text="Host"
         android:textSize="34sp"
-        app:layout_constraintBottom_toTopOf="@+id/editTextTextPersonName"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
@@ -24,37 +26,54 @@
         android:layout_width="80dp"
         android:layout_height="33dp"
         android:layout_marginStart="94dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="56dp"
+        android:layout_marginEnd="237dp"
+        android:layout_marginBottom="642dp"
         android:text="Welcome"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView14" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/host_name"
         android:layout_width="119dp"
         android:layout_height="36dp"
-        android:layout_marginStart="13dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginStart="187dp"
+        android:layout_marginTop="56dp"
+        android:layout_marginEnd="105dp"
+        android:layout_marginBottom="639dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/textView15"
-        app:layout_constraintTop_toBottomOf="@+id/textView14" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <Spinner
         android:id="@+id/ongoing_activities"
         android:layout_width="277dp"
         android:layout_height="25dp"
-        android:layout_marginStart="15dp"
-        android:layout_marginTop="9dp"
+        android:layout_marginStart="130dp"
+        android:layout_marginTop="101dp"
+        android:layout_marginEnd="4dp"
+        android:layout_marginBottom="605dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/textView17"
-        app:layout_constraintTop_toBottomOf="@+id/host_name" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:ignore="SpeakableTextPresentCheck" />
 
     <TextView
         android:id="@+id/textView17"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="18dp"
+        android:layout_marginTop="107dp"
+        android:layout_marginEnd="296dp"
         android:text="Ongoing activities:"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView15" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <Button
         android:id="@+id/create"
