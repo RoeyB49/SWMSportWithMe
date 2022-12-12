@@ -35,9 +35,6 @@ public class FirebaseRef {
     }
 
     public void addUser(Map<String, Object> user, String collectionPath) {
-        Map<String, String> map = new HashMap<>();
-        map.put("a", "a");
-        user.put("User", map);
         db.collection(collectionPath).document(user.get("Email").toString())
                 .set(user)
                 .addOnSuccessListener(new OnSuccessListener<Void>() {
