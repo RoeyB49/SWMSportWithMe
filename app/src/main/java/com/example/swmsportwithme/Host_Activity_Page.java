@@ -115,7 +115,7 @@ public class Host_Activity_Page extends AppCompatActivity {
         email.putExtra(Intent.EXTRA_SUBJECT, "SWM - Activity Deletion");
         email.putExtra(Intent.EXTRA_TEXT, "Activity " + strArr[0] + ", Date: " + strArr[1] + ", Time: " + strArr[2] + " is cancelled");
 
-//need this to prompts email client only
+        //need this to prompts email client only
         email.setType("message/rfc822");
 
         startActivity(Intent.createChooser(email, "Choose an Email client :"));
