@@ -1,6 +1,6 @@
-# SWMSportWithMe
+# SWM-SportWithMe
 
-Welcome to SWM!
+*Welcome to SWM!*
 
 SWM is a friendly app that helps users to meet up and do their sportive activities together.
 Sports Connection between the users has never been easier, An Host opens an activity to his choice(Date, Time, and of course an activity).
