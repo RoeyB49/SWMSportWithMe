@@ -66,8 +66,10 @@ public class Host_Activity_Page extends AppCompatActivity {
                 activitiesSpinner.getSelectedItem();
                 String selectedActivity = activitiesSpinner.getSelectedItem().toString();
                 String[] strArr = selectedActivity.replaceAll(" ", "").split(",");
-                deleteActivity(strArr);
-                setOngoingActivities();
+                if (!selectedActivity.equals("Ongoing activities")) {
+                    deleteActivity(strArr);
+                    setOngoingActivities();
+                }
 
             }
         });
@@ -111,7 +113,7 @@ public class Host_Activity_Page extends AppCompatActivity {
 
     private void sendEmail(String sendTo, String[] strArr) {
         Intent email = new Intent(Intent.ACTION_SEND);
-        email.putExtra(Intent.EXTRA_EMAIL, new String[]{ sendTo});
+        email.putExtra(Intent.EXTRA_EMAIL, new String[]{sendTo});
         email.putExtra(Intent.EXTRA_SUBJECT, "SWM - Activity Deletion");
         email.putExtra(Intent.EXTRA_TEXT, "Activity " + strArr[0] + ", Date: " + strArr[1] + ", Time: " + strArr[2] + " is cancelled");
 
@@ -169,6 +171,7 @@ public class Host_Activity_Page extends AppCompatActivity {
         CollectionReference subjectsRef = db.collection("Host").document(user.getEmail().toString()).collection("Activities");
         activitiesSpinner = (Spinner) findViewById(R.id.ongoing_activities);
         List<String> subjects = new ArrayList<>();
+        subjects.add("Ongoing activities");
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, subjects);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         subjectsRef.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
