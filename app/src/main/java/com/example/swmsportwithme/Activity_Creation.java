@@ -45,7 +45,7 @@ public class Activity_Creation extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_creation);
 
-        activities = new String[]{"Choose an activity", "Football", "Basketball", "Running", "Swimming", "Dog walking", "Tennis"};
+        activities = new String[]{"Choose an activity", "Football", "Basketball", "Running", "Swimming", "Dogwalking", "Tennis"};
         activitiesSpinner = (Spinner) findViewById(R.id.Type_of_activity);
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, activities);
         activitiesSpinner.setAdapter(adapter);

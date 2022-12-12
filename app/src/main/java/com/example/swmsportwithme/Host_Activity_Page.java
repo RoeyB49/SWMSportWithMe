@@ -77,7 +77,7 @@ public class Host_Activity_Page extends AppCompatActivity {
 
     private void deleteActivity(String[] strArr) {
         db.collection("Host").document(user.getEmail().toString()).collection("Activities").document(strArr[0]).delete();
-        db.collection("Join").document(user.getEmail().toString()).collection("Activities").document(strArr[0]).delete();
+//        db.collection("Join").document(user.getEmail().toString()).collection("Activities").document(strArr[0]).delete();
 
 
         // delete activity at Activities collection
@@ -94,14 +94,15 @@ public class Host_Activity_Page extends AppCompatActivity {
                                 @Override
                                 public void onComplete(@NonNull Task<QuerySnapshot> task) {
                                     if (task.isSuccessful()) {
-                                        for (QueryDocumentSnapshot document : task.getResult()) {
-                                            deleteFromJoin(document.get("Email").toString(), strArr);
-                                            sendEmail(document.get("Email").toString(), strArr);
+                                        for (QueryDocumentSnapshot doc : task.getResult()) {
+                                            deleteFromJoin(doc.getId(), strArr);
+                                            sendEmail(doc.getId(), strArr);
+                                            doc.getReference().delete();
                                         }
                                     }
                                 }
                             });
-
+                            document.getReference().collection("Participants");
                             document.getReference().delete();
                             document.getReference().delete();
                         }
@@ -121,29 +122,6 @@ public class Host_Activity_Page extends AppCompatActivity {
         email.setType("message/rfc822");
 
         startActivity(Intent.createChooser(email, "Choose an Email client :"));
-
-
-//        Log.i("Send email", "");
-//
-//        String[] TO = {email};
-//        String[] CC = {"tamar.d154@gmail.com"};
-//        Intent emailIntent = new Intent(Intent.ACTION_SEND);
-//        emailIntent.setData(Uri.parse("mailto:"));
-//        emailIntent.setType("text/plain");
-//
-//        emailIntent.putExtra(Intent.EXTRA_EMAIL, TO);
-//        emailIntent.putExtra(Intent.EXTRA_CC, CC);
-//        emailIntent.putExtra(Intent.EXTRA_SUBJECT, "SWM - Activity Deletion");
-//        emailIntent.putExtra(Intent.EXTRA_TEXT, "Activity " + strArr[0] + ", Date: " + strArr[1] + ", Time: " + strArr[2] + " is cancelled");
-//
-//        try {
-//            startActivity(Intent.createChooser(emailIntent, "Send mail..."));
-//            finish();
-//            Log.i("Finished sending email.", "");
-//        } catch (android.content.ActivityNotFoundException ex) {
-//            Toast.makeText(Host_Activity_Page.this,
-//                    "There is no email client installed.", Toast.LENGTH_SHORT).show();
-//        }
     }
 
     private void deleteFromJoin(String email, String[] strArr) {
