@@ -1,4 +1,4 @@
-# SWM-SportWithMe
+![appicon](https://user-images.githubusercontent.com/93865371/207062930-04f72cb8-fb27-4ed9-8537-aa1854f9cfbd.png) # SWM-SportWithMe
 
 *Welcome to SWM!*
 
