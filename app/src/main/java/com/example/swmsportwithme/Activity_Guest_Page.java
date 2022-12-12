@@ -5,12 +5,20 @@ import static androidx.constraintlayout.helper.widget.MotionEffect.TAG;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.Dialog;
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.EditText;
+import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.TextView;
 
@@ -36,13 +44,16 @@ public class Activity_Guest_Page extends AppCompatActivity {
     private TextView guestName;
     private FirebaseAuth mAuth = FirebaseAuth.getInstance();
     private FirebaseUser user = mAuth.getCurrentUser();
-    private Spinner activitiesSpinner;
+    //    private Spinner activitiesSpinner;
     private Spinner ongoingSpinner;
     private String[] activities;
     protected FirebaseFirestore db = FirebaseFirestore.getInstance();
     private FirebaseRef dbRef = new FirebaseRef();
     private Button joinActivity;
 
+    private TextView textview;
+    private ArrayList<String> arrayList;
+    private Dialog dialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,33 +63,101 @@ public class Activity_Guest_Page extends AppCompatActivity {
         guestName.setText(user.getEmail());
 
         activities = new String[]{"Choose an activity", "Football", "Basketball", "Running", "Swimming", "Dog walking", "Tennis"};
-        activitiesSpinner = (Spinner) findViewById(R.id.spinner3);
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, activities);
-        activitiesSpinner.setAdapter(adapter);
-        setAvailableActivities();
+//        activitiesSpinner = (Spinner) findViewById(R.id.spinner3);
+//        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, activities);
+//        activitiesSpinner.setAdapter(adapter);
+
         setOngoingActivities();
+
+        // assign variable
+        textview = findViewById(R.id.testView);
+
+        // initialize array list
+        arrayList = new ArrayList<>();
+        setAvailableActivities();
+
+        textview.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Initialize dialog
+                dialog = new Dialog(Activity_Guest_Page.this);
+
+                // set custom dialog
+                dialog.setContentView(R.layout.dialog_searchable_spinner);
+
+                // set custom height and width
+                dialog.getWindow().setLayout(650, 800);
+
+                // set transparent background
+                dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+
+                // show dialog
+                dialog.show();
+
+                // Initialize and assign variable
+                EditText editText = dialog.findViewById(R.id.edit_text);
+                ListView listView = dialog.findViewById(R.id.list_view);
+
+                // Initialize array adapter
+                ArrayAdapter<String> adapter = new ArrayAdapter<>(Activity_Guest_Page.this, android.R.layout.simple_list_item_1, arrayList);
+
+                // set adapter
+                listView.setAdapter(adapter);
+                editText.addTextChangedListener(new TextWatcher() {
+                    @Override
+                    public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+                    }
+
+                    @Override
+                    public void onTextChanged(CharSequence s, int start, int before, int count) {
+                        adapter.getFilter().filter(s);
+                    }
+
+                    @Override
+                    public void afterTextChanged(Editable s) {
+
+                    }
+                });
+
+                listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                    @Override
+                    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                        // when item selected from list
+                        // set selected item on textView
+                        textview.setText(adapter.getItem(position));
+
+                        // Dismiss dialog
+                        dialog.dismiss();
+                    }
+                });
+            }
+        });
 
 
         joinActivity = findViewById(R.id.join_new_activity);
         joinActivity.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String selectedActivity = activitiesSpinner.getSelectedItem().toString();
-                String[] strArr = selectedActivity.replaceAll(" ", "").split(",");
 
-                Map<String, Object> activity = new HashMap<>();
-                activity.put("Activity name", strArr[0]);
-                activity.put("Date", strArr[1]);
-                activity.put("Time", strArr[2]);
-                dbRef.addJoinActivities(activity);
+//                String selectedActivity = activitiesSpinner.getSelectedItem().toString();
+                String selectedActivity = textview.getText().toString();
+                if (!selectedActivity.equals("")) {
+                    String[] strArr = selectedActivity.replaceAll(" ", "").split(",");
 
-                setOngoingActivities();
+                    Map<String, Object> activity = new HashMap<>();
+                    activity.put("Activity name", strArr[0]);
+                    activity.put("Date", strArr[1]);
+                    activity.put("Time", strArr[2]);
+                    dbRef.addJoinActivities(activity);
+
+                    setOngoingActivities();
 
 
-                updateJoinedUsers(strArr);
+                    updateJoinedUsers(strArr);
+                }
             }
         });
-
     }
 
     private void updateJoinedUsers(String[] strArr) {
@@ -102,9 +181,9 @@ public class Activity_Guest_Page extends AppCompatActivity {
     private void setAvailableActivities() {
 
         CollectionReference subjectsRef = db.collection("Activities");
-        activitiesSpinner = (Spinner) findViewById(R.id.spinner3);
-        List<String> subjects = new ArrayList<>();
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, subjects);
+//        activitiesSpinner = (Spinner) findViewById(R.id.spinner3);
+//        List<String> subjects = new ArrayList<>();
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, arrayList);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         subjectsRef.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
             @Override
@@ -114,13 +193,13 @@ public class Activity_Guest_Page extends AppCompatActivity {
                         String subject = document.getString("Activity name");
                         subject += ", " + document.getString("Date");
                         subject += ", " + document.getString("Time");
-                        subjects.add(subject);
+                        arrayList.add(subject);
                     }
                     adapter.notifyDataSetChanged();
                 }
             }
         });
-        activitiesSpinner.setAdapter(adapter);
+//        activitiesSpinner.setAdapter(adapter);
     }
 
 
