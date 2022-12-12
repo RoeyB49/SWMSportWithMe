@@ -6,7 +6,7 @@
 
 Sports Connection between users has never been easier, an **Host** opens an activity to his choice(date, time and of course an activity).
 
-And the **Guest**(user who want to join) select the activity of his choice through a simple search on his profile page.
+The **Guest**(user who want to join) select the activity of his choice through a simple search on his profile page.
 
 Want to delete an activity? No worries, when the **Host** cancels an activity the users will get a mail about it.
 
