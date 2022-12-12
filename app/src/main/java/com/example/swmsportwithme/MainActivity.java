@@ -30,16 +30,13 @@ public class MainActivity extends AppCompatActivity {
     public EditText email, password;
     FirebaseRef db = new FirebaseRef();
     FirebaseAuth mAuth = FirebaseAuth.getInstance();
-    boolean flag = false;
-    boolean join = false;
-    boolean host = false;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        //Built in
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
         register = (Button) findViewById(R.id.register);
         login = (Button) findViewById(R.id.login);
 
@@ -52,13 +49,15 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        // Move to welcome screen
+        // Move to user(Host or Guest) welcome screen and validate that the fields are correctly filled with the helper functions we created
+
         login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 email = (EditText) findViewById(R.id.welcome_email);
                 password = (EditText) findViewById(R.id.welcome_password);
                 if (validateEmailAddress(email) && validatePassword(password)) {
+                    //Here we send the Email and the Password entered to helper function
                     signIn(email.getText().toString(), password.getText().toString());
 
                 }
@@ -72,15 +71,10 @@ public class MainActivity extends AppCompatActivity {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
-                            // Sign in success, update UI with the signed-in user's information
-//                            Log.d("TAG", "signInWithEmail:success");
-                            Toast.makeText(MainActivity.this, "connected",
-                                    Toast.LENGTH_LONG).show();
+                            Toast.makeText(MainActivity.this, "connected", Toast.LENGTH_LONG).show();
                             FirebaseUser user = mAuth.getCurrentUser();
                             getUserType("Users", email);
                         } else {
-                            // If sign in fails, display a message to the user.
-//                            Log.w("TAG", "signInWithEmail:failure", task.getException());
                             System.out.println("---------------------------> signInWithEmail:failure");
                             Toast.makeText(MainActivity.this, "Authentication failed.",
                                     Toast.LENGTH_SHORT).show();
@@ -88,7 +82,7 @@ public class MainActivity extends AppCompatActivity {
                     }
                 });
     }
-
+//This function helps us to prepare correctly the welcome page for each of the users logged on(Host or Guest)
     public void getUserType(String collectionPath, String email) {
         DocumentReference docRef = db.db.collection(collectionPath).document(email);
         docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
@@ -113,12 +107,6 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-//    @Override
-//    protected void onStop() {
-//        super.onStop();
-//        mAuth.signOut();
-//    }
-
     private void openRegistrationScreen() {
         Intent intent = new Intent(this, Registration.class);
         startActivity(intent);
@@ -137,7 +125,6 @@ public class MainActivity extends AppCompatActivity {
     private boolean validateEmailAddress(EditText Email) {
         String emailInput = Email.getText().toString();
         if (!emailInput.isEmpty() && Patterns.EMAIL_ADDRESS.matcher(emailInput).matches()) {
-//            Toast.makeText(this, "valid email", Toast.LENGTH_SHORT).show();
             return true;
         } else {
             Toast.makeText(this, "Invalid Email please try again!", Toast.LENGTH_SHORT).show();

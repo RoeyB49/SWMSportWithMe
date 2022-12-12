@@ -102,21 +102,5 @@ public class FirebaseRef {
                 });
     }
 
-//    public void updateJoinedUsers(Map<String, Object> user, String activity) {
-//        db.collection("Activities").document(activity).collection("Participants")
-//                .add(user)
-//                .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
-//                    @Override
-//                    public void onSuccess(DocumentReference documentReference) {
-//                        Log.d(TAG, "DocumentSnapshot added with ID: " + documentReference.getId());
-//                    }
-//                })
-//                .addOnFailureListener(new OnFailureListener() {
-//                    @Override
-//                    public void onFailure(@NonNull Exception e) {
-//                        Log.w(TAG, "Error adding document", e);
-//                    }
-//                });
-//    }
 
 }

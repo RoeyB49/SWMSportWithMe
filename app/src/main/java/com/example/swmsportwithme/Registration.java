@@ -40,6 +40,117 @@ public class Registration extends AppCompatActivity {
     private FirebaseAuth mAuth = FirebaseAuth.getInstance();
     final static String DATE_FORMAT = "dd/MM/yyyy";
 
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_registration);
+        Button next = (Button) findViewById(R.id.next);
+        next.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Fullname = (EditText) findViewById(R.id.Full_Name_Registration);
+                Email = (EditText) findViewById(R.id.Email_Registration);
+                Password = (EditText) findViewById(R.id.Password_Registration);
+                RepeatPassword = (EditText) findViewById(R.id.Repeat_Password_Registration);
+                Birthdate = (EditText) findViewById(R.id.Birth_Date_Registration);
+                Football = (CheckBox) findViewById(R.id.football_Registration);
+                Basketball = (CheckBox) findViewById(R.id.Basketball_Registration);
+                Swimming = (CheckBox) findViewById(R.id.Swim_Registration);
+                Running = (CheckBox) findViewById(R.id.Running_Registration);
+                Dogwalking = (CheckBox) findViewById(R.id.DogWalk_Registration);
+                Tennis = (CheckBox) findViewById(R.id.Tennis_Registration);
+                Gender = (RadioGroup) findViewById(R.id.Genders);
+                if (Gender.getCheckedRadioButtonId() != -1) {
+                    int selectedGenderId = Gender.getCheckedRadioButtonId();
+                    RB1 = (RadioButton) findViewById(selectedGenderId);
+                }
+                ActivityType = (RadioGroup) findViewById(R.id.Activity_JoinOrHost);
+                if (ActivityType.getCheckedRadioButtonId() != -1) {
+                    int selectedActivityId = ActivityType.getCheckedRadioButtonId();
+                    RB2 = (RadioButton) findViewById(selectedActivityId);
+                }
+                if (validateActivityJoinOrHost() && validateGender() && validatePassword(Password) && validateFullName() && validateBirthdate() && CheckPassword() && validateRepeatPassword() &&
+                        validateHobbies() && validateEmailAddress(Email)) {
+                    Map<String, Object> user = new HashMap<>();
+                    user.put("Email", Email.getText().toString());
+                    user.put("Password", Password.getText().toString());
+                    user.put("Birth date", Birthdate.getText().toString());
+                    user.put("Full name", Fullname.getText().toString());
+                    if (Gender.getCheckedRadioButtonId() != -1) {
+                        user.put("Gender", RB1.getText().toString());
+                    }
+                    ArrayList<String> hobbiesArr = new ArrayList<>();
+                    if (Football.isChecked()) {
+                        hobbiesArr.add("Football");
+                    }
+                    if (Basketball.isChecked()) {
+                        hobbiesArr.add("Basketball");
+                    }
+                    if (Swimming.isChecked()) {
+                        hobbiesArr.add("Swimming");
+                    }
+                    if (Running.isChecked()) {
+                        hobbiesArr.add("Running");
+                    }
+                    if (Dogwalking.isChecked()) {
+                        hobbiesArr.add("Dog walking");
+                    }
+                    if (Tennis.isChecked()) {
+                        hobbiesArr.add("Tennis");
+                    }
+                    user.put("Hobbies", hobbiesArr);
+
+                    createAccount((String) user.get("Email"), (String) user.get("Password"));
+
+                    // Add a new document with a generated ID
+                    FirebaseRef db = new FirebaseRef();
+                    HashMap<String, Object> userType = new HashMap<>();
+                    if (ActivityType.getCheckedRadioButtonId() != -1) {
+                        if (RB2.getText().toString().equals("Joining an activity")) {
+                            db.addUser(user, "Join");
+                            userType.put("Type", "Join");
+                        } else {
+                            db.addUser(user, "Host");
+                            userType.put("Type", "Host");
+                        }
+                        userType.put("Email", Email.getText().toString());
+                        db.addUser(userType, "Users");
+                    }
+                    openMainpage();
+                }
+            }
+
+        });
+    }
+
+    private void createAccount(String email, String password) {
+        // [START create_user_with_email]
+        mAuth.createUserWithEmailAndPassword(email, password)
+                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+                    @Override
+                    public void onComplete(@NonNull Task<AuthResult> task) {
+                        if (task.isSuccessful()) {
+                            // Sign in success, update UI with the signed-in user's information
+
+                            Log.d(TAG, "createUserWithEmail:success");
+                            FirebaseUser user = mAuth.getCurrentUser();
+                        } else {
+                            // If sign in fails, display a message to the user.
+                            Log.w(TAG, "createUserWithEmail:failure", task.getException());
+                            Toast.makeText(Registration.this, "Authentication failed.",
+                                    Toast.LENGTH_LONG).show();
+                        }
+                    }
+                });
+        // [END create_user_with_email]
+    }
+
+    private void openMainpage() {
+        Intent intent = new Intent(this, MainActivity.class);
+        startActivity(intent);
+    }
+
+    //Helper functions
     private boolean validateEmailAddress(EditText Email) {
         String emailInput = Email.getText().toString();
         if (!emailInput.isEmpty() && Patterns.EMAIL_ADDRESS.matcher(emailInput).matches()) {
@@ -145,117 +256,6 @@ public class Registration extends AppCompatActivity {
             Toast.makeText(this, "You have to choose at least one hobby to proceed!", Toast.LENGTH_SHORT).show();
             return false;
         }
-    }
-
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_registration);
-        Button next = (Button) findViewById(R.id.next);
-        next.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Fullname = (EditText) findViewById(R.id.Full_Name_Registration);
-                Email = (EditText) findViewById(R.id.Email_Registration);
-                Password = (EditText) findViewById(R.id.Password_Registration);
-                RepeatPassword = (EditText) findViewById(R.id.Repeat_Password_Registration);
-                Birthdate = (EditText) findViewById(R.id.Birth_Date_Registration);
-                Football = (CheckBox) findViewById(R.id.football_Registration);
-                Basketball = (CheckBox) findViewById(R.id.Basketball_Registration);
-                Swimming = (CheckBox) findViewById(R.id.Swim_Registration);
-                Running = (CheckBox) findViewById(R.id.Running_Registration);
-                Dogwalking = (CheckBox) findViewById(R.id.DogWalk_Registration);
-                Tennis = (CheckBox) findViewById(R.id.Tennis_Registration);
-                Gender = (RadioGroup) findViewById(R.id.Genders);
-                if (Gender.getCheckedRadioButtonId() != -1) {
-                    int selectedGenderId = Gender.getCheckedRadioButtonId();
-                    RB1 = (RadioButton) findViewById(selectedGenderId);
-                }
-                ActivityType = (RadioGroup) findViewById(R.id.Activity_JoinOrHost);
-                if (ActivityType.getCheckedRadioButtonId() != -1) {
-                    int selectedActivityId = ActivityType.getCheckedRadioButtonId();
-                    RB2 = (RadioButton) findViewById(selectedActivityId);
-                }
-                if (validateActivityJoinOrHost() && validateGender() && validatePassword(Password) && validateFullName() && validateBirthdate() && CheckPassword() && validateRepeatPassword() &&
-                        validateHobbies() && validateEmailAddress(Email)) {
-                    Map<String, Object> user = new HashMap<>();
-                    user.put("Email", Email.getText().toString());
-                    user.put("Password", Password.getText().toString());
-//                    createAccount((String)user.get("Email"), (String)user.get("Password"));
-                    user.put("Birth date", Birthdate.getText().toString());
-                    user.put("Full name", Fullname.getText().toString());
-                    if (Gender.getCheckedRadioButtonId() != -1) {
-                        user.put("Gender", RB1.getText().toString());
-                    }
-                    ArrayList<String> hobbiesArr = new ArrayList<>();
-                    if (Football.isChecked()) {
-                        hobbiesArr.add("Football");
-                    }
-                    if (Basketball.isChecked()) {
-                        hobbiesArr.add("Basketball");
-                    }
-                    if (Swimming.isChecked()) {
-                        hobbiesArr.add("Swimming");
-                    }
-                    if (Running.isChecked()) {
-                        hobbiesArr.add("Running");
-                    }
-                    if (Dogwalking.isChecked()) {
-                        hobbiesArr.add("Dog walking");
-                    }
-                    if (Tennis.isChecked()) {
-                        hobbiesArr.add("Tennis");
-                    }
-                    user.put("Hobbies", hobbiesArr);
-
-                    createAccount((String) user.get("Email"), (String) user.get("Password"));
-
-                    // Add a new document with a generated ID
-                    FirebaseRef db = new FirebaseRef();
-                    HashMap<String, Object> userType = new HashMap<>();
-                    if (ActivityType.getCheckedRadioButtonId() != -1) {
-                        if (RB2.getText().toString().equals("Joining an activity")) {
-                            db.addUser(user, "Join");
-                            userType.put("Type", "Join");
-                        } else {
-                            db.addUser(user, "Host");
-                            userType.put("Type", "Host");
-                        }
-                        userType.put("Email", Email.getText().toString());
-                        db.addUser(userType, "Users");
-                    }
-                    openMainpage();
-                }
-            }
-
-        });
-    }
-
-    private void createAccount(String email, String password) {
-        // [START create_user_with_email]
-        mAuth.createUserWithEmailAndPassword(email, password)
-                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
-                    @Override
-                    public void onComplete(@NonNull Task<AuthResult> task) {
-                        if (task.isSuccessful()) {
-                            // Sign in success, update UI with the signed-in user's information
-
-                            Log.d(TAG, "createUserWithEmail:success");
-                            FirebaseUser user = mAuth.getCurrentUser();
-                        } else {
-                            // If sign in fails, display a message to the user.
-                            Log.w(TAG, "createUserWithEmail:failure", task.getException());
-                            Toast.makeText(Registration.this, "Authentication failed.",
-                                    Toast.LENGTH_LONG).show();
-                        }
-                    }
-                });
-        // [END create_user_with_email]
-    }
-
-    private void openMainpage() {
-        Intent intent = new Intent(this, MainActivity.class);
-        startActivity(intent);
     }
 
 }

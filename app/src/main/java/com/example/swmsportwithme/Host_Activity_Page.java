@@ -44,11 +44,11 @@ public class Host_Activity_Page extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        //Built in
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_host_page);
         hostName = (TextView) findViewById(R.id.host_name);
         hostName.setText(user.getEmail());
-
         setOngoingActivities();
 
         Button create = (Button) findViewById(R.id.create);
@@ -77,8 +77,6 @@ public class Host_Activity_Page extends AppCompatActivity {
 
     private void deleteActivity(String[] strArr) {
         db.collection("Host").document(user.getEmail().toString()).collection("Activities").document(strArr[0]).delete();
-//        db.collection("Join").document(user.getEmail().toString()).collection("Activities").document(strArr[0]).delete();
-
 
         // delete activity at Activities collection
         CollectionReference activities = db.collection("Activities");
@@ -88,7 +86,7 @@ public class Host_Activity_Page extends AppCompatActivity {
                 if (task.isSuccessful()) {
                     for (QueryDocumentSnapshot document : task.getResult()) {
                         if (document.getString("Activity name").equals(strArr[0]) && document.getString("Date").equals(strArr[1]) && document.getString("Time").equals(strArr[2])) {
-
+                            //Enter to the inner collection Participants and we want to go over all the documents that in there to also delete them and send mail afterwards
                             CollectionReference participants = document.getReference().collection("Participants");
                             participants.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                                 @Override
@@ -139,12 +137,6 @@ public class Host_Activity_Page extends AppCompatActivity {
             }
         });
     }
-
-    private void openCreation() {
-        Intent intent = new Intent(this, Activity_Creation.class);
-        startActivity(intent);
-    }
-
     private void setOngoingActivities() {
         CollectionReference subjectsRef = db.collection("Host").document(user.getEmail().toString()).collection("Activities");
         activitiesSpinner = (Spinner) findViewById(R.id.ongoing_activities);
@@ -168,6 +160,9 @@ public class Host_Activity_Page extends AppCompatActivity {
         });
         activitiesSpinner.setAdapter(adapter);
     }
-
+    private void openCreation() {
+        Intent intent = new Intent(this, Activity_Creation.class);
+        startActivity(intent);
+    }
 
 }

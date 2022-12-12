@@ -44,32 +44,27 @@ public class Activity_Guest_Page extends AppCompatActivity {
     private TextView guestName;
     private FirebaseAuth mAuth = FirebaseAuth.getInstance();
     private FirebaseUser user = mAuth.getCurrentUser();
-    //    private Spinner activitiesSpinner;
     private Spinner ongoingSpinner;
-    private String[] activities;
     protected FirebaseFirestore db = FirebaseFirestore.getInstance();
     private FirebaseRef dbRef = new FirebaseRef();
     private Button joinActivity;
-
     private TextView textview;
     private ArrayList<String> arrayList;
+    //Object that will help us with the search function for the Guest user
     private Dialog dialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        //Build in
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_guest_page);
         guestName = (TextView) findViewById(R.id.guest_name);
         guestName.setText(user.getEmail());
-
-        activities = new String[]{"Choose an activity", "Football", "Basketball", "Running", "Swimming", "Dogwalking", "Tennis"};
-//        activitiesSpinner = (Spinner) findViewById(R.id.spinner3);
-//        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, activities);
-//        activitiesSpinner.setAdapter(adapter);
-
         setOngoingActivities();
 
-        // assign variable
+//Start of the search function
+
+        // assign variable for the search option
         textview = findViewById(R.id.testView);
 
         // initialize array list
@@ -133,27 +128,24 @@ public class Activity_Guest_Page extends AppCompatActivity {
                 });
             }
         });
-
-
+//End of the search function
         joinActivity = findViewById(R.id.join_new_activity);
         joinActivity.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-//                String selectedActivity = activitiesSpinner.getSelectedItem().toString();
                 String selectedActivity = textview.getText().toString();
                 if (!selectedActivity.equals("")) {
+                    //Helper array to make it easier for us to make activity object for the database
                     String[] strArr = selectedActivity.replaceAll(" ", "").split(",");
-
                     Map<String, Object> activity = new HashMap<>();
                     activity.put("Activity name", strArr[0]);
                     activity.put("Date", strArr[1]);
                     activity.put("Time", strArr[2]);
                     dbRef.addJoinActivities(activity);
-
+//Update the bottom spinner on which activity did the user signed
                     setOngoingActivities();
 
-
+//Calling this function will put the activity the user chose to join with the helper array we created to a document called participants with his mail
                     updateJoinedUsers(strArr);
                 }
             }
@@ -177,12 +169,9 @@ public class Activity_Guest_Page extends AppCompatActivity {
             }
         });
     }
-
+//Update the available activities from the database to the search function we created on top
     private void setAvailableActivities() {
-
         CollectionReference subjectsRef = db.collection("Activities");
-//        activitiesSpinner = (Spinner) findViewById(R.id.spinner3);
-//        List<String> subjects = new ArrayList<>();
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, arrayList);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         subjectsRef.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
@@ -199,17 +188,15 @@ public class Activity_Guest_Page extends AppCompatActivity {
                 }
             }
         });
-//        activitiesSpinner.setAdapter(adapter);
     }
 
-
+    //Set the Ongoing activities of the user from the database
     private void setOngoingActivities() {
         CollectionReference subjectsRef = db.collection("Join").document(user.getEmail().toString()).collection("Activities");
         ongoingSpinner = (Spinner) findViewById(R.id.ongoing_spinner);
         List<String> subjects = new ArrayList<>();
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, subjects);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-//        activitiesSpinner.setAdapter(adapter);
         subjectsRef.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
             @Override
             public void onComplete(@org.checkerframework.checker.nullness.qual.NonNull Task<QuerySnapshot> task) {

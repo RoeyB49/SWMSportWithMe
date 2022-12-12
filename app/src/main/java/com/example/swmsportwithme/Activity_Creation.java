@@ -1,50 +1,39 @@
 package com.example.swmsportwithme;
 
-import static androidx.constraintlayout.helper.widget.MotionEffect.TAG;
 import static com.example.swmsportwithme.Registration.DATE_FORMAT;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
-import android.widget.TimePicker;
 import android.widget.Toast;
 
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.time.format.DateTimeFormatter;
-import java.time.format.ResolverStyle;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
-import java.util.SimpleTimeZone;
 
 public class Activity_Creation extends AppCompatActivity {
     private String[] activities;
     private Spinner activitiesSpinner;
     EditText date, time;
     FirebaseRef db = new FirebaseRef();
-    protected FirebaseFirestore dbfs = FirebaseFirestore.getInstance();
     private FirebaseAuth mAuth = FirebaseAuth.getInstance();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        //Build in
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_creation);
-
         activities = new String[]{"Choose an activity", "Football", "Basketball", "Running", "Swimming", "Dogwalking", "Tennis"};
         activitiesSpinner = (Spinner) findViewById(R.id.Type_of_activity);
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, activities);
@@ -54,11 +43,8 @@ public class Activity_Creation extends AppCompatActivity {
         Button confirm = (Button) findViewById(R.id.host_create_activity_confirm);
         confirm.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-//                DocumentReference messageRef = db
-//                        .collection("rooms").document("roomA")
-//                        .collection("messages").document("message1");
                 // Check if all inputs are valid
-                if (validateActivity() && validateBirthdate() && validateTime()) {
+                if (validateActivity() && validatedate() && validateTime()) {
                     // Add to firebase
                     Map<String, Object> activity = new HashMap<>();
                     activity.put("Activity name", activitiesSpinner.getSelectedItem().toString());
@@ -96,7 +82,7 @@ public class Activity_Creation extends AppCompatActivity {
             return false;
         }
     }
-    private boolean validateBirthdate(){
+    private boolean validatedate(){
         date = findViewById(R.id.host_activity_date);
         String val = date.getText().toString().trim();
         if (val.isEmpty()) {
