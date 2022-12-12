@@ -62,7 +62,7 @@ public class Activity_Guest_Page extends AppCompatActivity {
         guestName = (TextView) findViewById(R.id.guest_name);
         guestName.setText(user.getEmail());
 
-        activities = new String[]{"Choose an activity", "Football", "Basketball", "Running", "Swimming", "Dog walking", "Tennis"};
+        activities = new String[]{"Choose an activity", "Football", "Basketball", "Running", "Swimming", "Dogwalking", "Tennis"};
 //        activitiesSpinner = (Spinner) findViewById(R.id.spinner3);
 //        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, activities);
 //        activitiesSpinner.setAdapter(adapter);
@@ -168,9 +168,9 @@ public class Activity_Guest_Page extends AppCompatActivity {
                 if (task.isSuccessful()) {
                     for (QueryDocumentSnapshot document : task.getResult()) {
                         if (document.getString("Activity name").equals(strArr[0]) && document.getString("Date").equals(strArr[1]) && document.getString("Time").equals(strArr[2])) {
-                            Map<String, Object> userEmail = new HashMap<>();
-                            userEmail.put("Email", user.getEmail());
-                            document.getReference().collection("Participants").add(userEmail);
+                            Map<String, Object> joined = new HashMap<>();
+                            joined.put("Joined", true);
+                            document.getReference().collection("Participants").document(user.getEmail()).set(joined);
                         }
                     }
                 }
