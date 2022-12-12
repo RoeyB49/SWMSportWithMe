@@ -16,7 +16,7 @@
         android:background="@android:drawable/editbox_background"
         android:drawableEnd="@drawable/ic_baseline_search_24"
         android:gravity="center_vertical"
-        android:hint="Select course"
+        android:hint="Select Activity"
         android:padding="12dp"
         app:layout_constraintBottom_toTopOf="@+id/join_new_activity"
         app:layout_constraintEnd_toEndOf="parent"
