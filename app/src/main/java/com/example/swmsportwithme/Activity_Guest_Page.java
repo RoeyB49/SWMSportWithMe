@@ -58,8 +58,6 @@ public class Activity_Guest_Page extends AppCompatActivity {
         //Build in
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_guest_page);
-        guestName = (TextView) findViewById(R.id.guest_name);
-        guestName.setText(user.getEmail());
         setOngoingActivities();
 
 //Start of the search function

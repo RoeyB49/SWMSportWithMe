@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/background"
     tools:context=".Registration"
     tools:layout_editor_absoluteX="0dp"
     tools:layout_editor_absoluteY="0dp">
@@ -12,88 +13,119 @@
         android:id="@+id/Tennis_Registration"
         android:layout_width="92dp"
         android:layout_height="41dp"
+        android:layout_marginStart="292dp"
+        android:layout_marginTop="365dp"
+        android:layout_marginEnd="27dp"
+        android:layout_marginBottom="325dp"
+        android:buttonTint="#5C00FF"
         android:text="Tennis"
-        app:layout_constraintBottom_toTopOf="@+id/Activity_JoinOrHost"
+        android:textColor="#000000"
+        android:textColorHint="#000000"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toEndOf="@+id/DogWalk_Registration"
-        app:layout_constraintTop_toBottomOf="@+id/Basketball_Registration"
-        app:layout_constraintVertical_bias="0.509" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <CheckBox
         android:id="@+id/football_Registration"
         android:layout_width="92dp"
         android:layout_height="41dp"
+        android:layout_marginStart="292dp"
+        android:layout_marginTop="488dp"
+        android:layout_marginEnd="27dp"
+        android:layout_marginBottom="202dp"
+        android:buttonTint="#5C00FF"
         android:text="Football"
-        app:layout_constraintBottom_toTopOf="@+id/Swim_Registration"
-        app:layout_constraintEnd_toStartOf="@+id/Basketball_Registration"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toEndOf="@+id/textView25"
-        app:layout_constraintTop_toBottomOf="@+id/Birth_Date_Registration"
-        app:layout_constraintVertical_bias="0.5" />
+        android:textColor="#000000"
+        android:textColorHint="#000000"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <CheckBox
         android:id="@+id/Swim_Registration"
         android:layout_width="92dp"
         android:layout_height="41dp"
-        android:layout_marginStart="80dp"
+        android:layout_marginStart="292dp"
+        android:layout_marginTop="447dp"
+        android:layout_marginEnd="27dp"
+        android:layout_marginBottom="243dp"
+        android:buttonTint="#5C00FF"
         android:text="Swim"
-        app:layout_constraintBottom_toTopOf="@+id/Activity_JoinOrHost"
-        app:layout_constraintEnd_toStartOf="@+id/DogWalk_Registration"
-        app:layout_constraintHorizontal_bias="0.5"
+        android:textColor="#000000"
+        android:textColorHint="#000000"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/football_Registration"
-        app:layout_constraintVertical_bias="0.5" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <CheckBox
         android:id="@+id/DogWalk_Registration"
         android:layout_width="92dp"
         android:layout_height="41dp"
-        android:layout_marginStart="-10dp"
+        android:layout_marginStart="292dp"
+        android:layout_marginTop="406dp"
+        android:layout_marginEnd="27dp"
+        android:layout_marginBottom="284dp"
+        android:buttonTint="#5C00FF"
         android:text="Dog walking"
-        app:layout_constraintBottom_toTopOf="@+id/Activity_JoinOrHost"
-        app:layout_constraintEnd_toStartOf="@+id/Tennis_Registration"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toEndOf="@+id/Swim_Registration"
-        app:layout_constraintTop_toBottomOf="@+id/Basketball_Registration"
-        app:layout_constraintVertical_bias="0.5" />
+        android:textColor="#000000"
+        android:textColorHint="#000000"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <CheckBox
         android:id="@+id/Basketball_Registration"
         android:layout_width="108dp"
         android:layout_height="41dp"
+        android:layout_marginStart="292dp"
+        android:layout_marginTop="324dp"
+        android:layout_marginEnd="11dp"
+        android:layout_marginBottom="366dp"
+        android:buttonTint="#5C00FF"
         android:text="Basketball"
-        app:layout_constraintBottom_toTopOf="@+id/DogWalk_Registration"
-        app:layout_constraintEnd_toStartOf="@+id/Running_Registration"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toEndOf="@+id/football_Registration"
-        app:layout_constraintTop_toBottomOf="@+id/Birth_Date_Registration"
-        app:layout_constraintVertical_bias="0.5" />
+        android:textColor="#000000"
+        android:textColorHint="#000000"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <CheckBox
         android:id="@+id/Running_Registration"
         android:layout_width="92dp"
         android:layout_height="41dp"
+        android:layout_marginStart="292dp"
+        android:layout_marginTop="283dp"
+        android:layout_marginEnd="27dp"
+        android:layout_marginBottom="407dp"
+        android:buttonTint="#5C00FF"
         android:text="Running"
-        app:layout_constraintBottom_toTopOf="@+id/Tennis_Registration"
+        android:textColor="#000000"
+        android:textColorHint="#000000"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toEndOf="@+id/Basketball_Registration"
-        app:layout_constraintTop_toBottomOf="@+id/Genders"
-        app:layout_constraintVertical_bias="0.846" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/textView10"
         android:layout_width="92dp"
         android:layout_height="35dp"
+        android:layout_marginStart="296dp"
         android:layout_marginTop="112dp"
-        android:layout_marginBottom="14dp"
+        android:layout_marginEnd="32dp"
+        android:layout_marginBottom="584dp"
         android:text="@string/gender"
+        android:textColor="#000000"
+        android:textColorHint="#000000"
         android:textSize="20sp"
-        app:layout_constraintBottom_toTopOf="@+id/Genders"
-        app:layout_constraintEnd_toEndOf="@+id/Genders"
-        app:layout_constraintHorizontal_bias="0.4"
-        app:layout_constraintStart_toStartOf="@+id/Genders"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
@@ -105,6 +137,8 @@
         android:autoText="false"
         android:text="@string/registration"
         android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+        android:textColor="#000000"
+        android:textColorHint="#000000"
         android:textSize="34sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -121,10 +155,13 @@
         android:layout_marginStart="30dp"
         android:layout_marginEnd="10dp"
         android:autofillHints=""
+        android:buttonTint="#5C00FF"
         android:ems="10"
         android:hint="@string/Email"
         android:inputType="textEmailAddress"
         android:minHeight="48dp"
+        android:textColor="#000000"
+        android:textColorHint="#000000"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/Genders"
@@ -138,14 +175,16 @@
         android:layout_width="238dp"
         android:layout_height="42dp"
         android:layout_marginStart="30dp"
-        android:layout_marginTop="28dp"
+        android:layout_marginTop="20dp"
         android:layout_marginEnd="52dp"
         android:autofillHints=""
+        android:buttonTint="#5C00FF"
         android:ems="10"
         android:hint="@string/Password"
         android:inputType="textPassword"
         android:password="true"
-        android:textColorHint="#757575"
+        android:textColor="#000000"
+        android:textColorHint="#000000"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
@@ -155,33 +194,51 @@
         android:id="@+id/Genders"
         android:layout_width="127dp"
         android:layout_height="90dp"
-        android:layout_marginEnd="1dp"
-        android:layout_marginBottom="241dp"
-        app:layout_constraintBottom_toTopOf="@+id/Activity_JoinOrHost"
+        android:layout_marginStart="290dp"
+        android:layout_marginTop="147dp"
+        android:layout_marginEnd="-9dp"
+        android:layout_marginBottom="494dp"
+        android:buttonTint="#5C00FF"
+        android:textColor="#000000"
+        android:textColorHint="#000000"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/Email_Registration"
-        app:layout_constraintTop_toBottomOf="@+id/textView10">
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
         <RadioButton
             android:id="@+id/Male_Registration"
             android:layout_width="117dp"
-            android:layout_height="40dp"
+            android:layout_height="31dp"
             android:layout_weight="1"
-            android:text="Male" />
+            android:buttonTint="#5C00FF"
+            android:text="Male"
+            android:textColor="#000000"
+            android:textColorHint="#000000" />
 
         <RadioButton
             android:id="@+id/Female_Registration"
             android:layout_width="117dp"
             android:layout_height="40dp"
             android:layout_weight="1"
-            android:text="Female" />
+            android:buttonTint="#5C00FF"
+            android:text="Female"
+            android:textColor="#000000"
+            android:textColorHint="#000000"
+
+            />
 
         <RadioButton
             android:id="@+id/Other_Gender_Registration"
             android:layout_width="117dp"
             android:layout_height="40dp"
             android:layout_weight="1"
-            android:text="Other" />
+            android:buttonTint="#5C00FF"
+            android:text="Other"
+            android:textColor="#000000"
+            android:textColorHint="#000000"
+
+            />
     </RadioGroup>
 
     <EditText
@@ -195,7 +252,8 @@
         android:hint="Birth date:"
         android:inputType="text"
         android:minHeight="48dp"
-        android:textColorHint="#757575"
+        android:textColor="#000000"
+        android:textColorHint="#000000"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
@@ -214,7 +272,8 @@
         android:hint="Full name:"
         android:inputType="textPersonName"
         android:minHeight="48dp"
-        android:textColorHint="#757575"
+        android:textColor="#000000"
+        android:textColorHint="#000000"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
@@ -234,7 +293,8 @@
         android:inputType="textPassword"
         android:minHeight="48dp"
         android:password="true"
-        android:textColorHint="#757575"
+        android:textColor="#000000"
+        android:textColorHint="#000000"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
@@ -242,70 +302,93 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.349" />
 
+
     <Button
         android:id="@+id/next"
         android:layout_width="114dp"
         android:layout_height="68dp"
+        android:layout_marginStart="281dp"
+        android:layout_marginTop="625dp"
         android:layout_marginEnd="16dp"
-        android:layout_marginBottom="4dp"
+        android:layout_marginBottom="38dp"
+        android:background="@drawable/btn_img"
         android:text="@string/next"
+        android:textColor="#000000"
+        android:textColorHint="#000000"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <RadioGroup
         android:id="@+id/Activity_JoinOrHost"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_marginStart="57dp"
-        android:layout_marginTop="50dp"
-        android:layout_marginEnd="57dp"
-        android:layout_marginBottom="100dp"
+        android:layout_width="232dp"
+        android:layout_height="84dp"
+        android:layout_marginStart="198dp"
+        android:layout_marginTop="529dp"
+        android:layout_marginBottom="118dp"
+        android:buttonTint="#5C00FF"
         android:orientation="horizontal"
+        android:textColor="#5C00FF"
+        android:textColorHint="#5C00FF"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/Genders">
+        app:layout_constraintTop_toTopOf="parent">
 
         <RadioButton
             android:id="@+id/Joining_CheckBox_Registration"
-            android:layout_width="wrap_content"
+            android:layout_width="106dp"
             android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:text="Joining an activity" />
+            android:buttonTint="#5C00FF"
+            android:text="Joining an activity"
+            android:textColor="#5C00FF"
+            android:textColorHint="#5C00FF" />
 
         <RadioButton
             android:id="@+id/Hosting_CheckBox_Registration"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:text="Hosting an activity" />
+            android:layout_width="126dp"
+            android:layout_height="73dp"
+            android:buttonTint="#5C00FF"
+            android:text="Hosting an activity"
+            android:textColor="#5C00FF"
+            android:textColorHint="#5C00FF" />
     </RadioGroup>
 
     <TextView
         android:id="@+id/textView25"
         android:layout_width="83dp"
         android:layout_height="35dp"
-        android:layout_marginEnd="324dp"
-        android:layout_marginBottom="268dp"
+        android:layout_marginStart="292dp"
+        android:layout_marginTop="248dp"
+        android:layout_marginEnd="36dp"
+        android:layout_marginBottom="448dp"
         android:text="Hobbies:"
-        android:textSize="16dp"
+        android:textColor="#000000"
+        android:textColorHint="#000000"
+        android:textSize="20sp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
-
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <androidx.constraintlayout.widget.Group
         android:id="@+id/group"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:buttonTint="#5C00FF"
+        android:textColor="#000000"
+        android:textColorHint="#000000"
         app:constraint_referenced_ids="football_Registration,Swim_Registration,DogWalk_Registration,Basketball_Registration,Running_Registration,Tennis_Registration" />
 
     <androidx.constraintlayout.widget.Group
         android:id="@+id/group2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:buttonTint="#5C00FF"
+        android:textColor="#000000"
+        android:textColorHint="#000000"
         app:constraint_referenced_ids="football_Registration,Swim_Registration,DogWalk_Registration,Basketball_Registration,Running_Registration,Tennis_Registration" />
-
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

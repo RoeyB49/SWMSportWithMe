@@ -4,88 +4,115 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/background"
     tools:context=".MainActivity">
+
 
     <EditText
         android:id="@+id/welcome_email"
         android:layout_width="255dp"
         android:layout_height="51dp"
-        android:layout_marginStart="58dp"
-        android:layout_marginTop="196dp"
-        android:layout_marginEnd="58dp"
+        android:layout_marginStart="78dp"
+        android:layout_marginTop="142dp"
+        android:layout_marginEnd="78dp"
+        android:layout_marginBottom="538dp"
         android:autofillHints=""
         android:ems="10"
         android:hint="@string/email"
         android:inputType="textEmailAddress"
-        android:textColorHint="#757575"
-        app:layout_constraintBottom_toTopOf="@+id/welcome_password"
+        android:textColor="#000000"
+        android:textColorHint="#000000"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
         android:id="@+id/welcome_password"
         android:layout_width="255dp"
         android:layout_height="51dp"
-        android:layout_marginStart="58dp"
-        android:layout_marginEnd="58dp"
-        android:layout_marginBottom="404dp"
+        android:layout_marginStart="78dp"
+        android:layout_marginTop="211dp"
+        android:layout_marginEnd="78dp"
+        android:layout_marginBottom="469dp"
         android:autofillHints=""
         android:ems="10"
         android:hint="@string/password"
         android:inputType="textPassword"
-        android:textColorHint="#757575"
+        android:textColor="#000000"
+        android:textColorHint="#000000"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <Button
         android:id="@+id/login"
         android:layout_width="131dp"
         android:layout_height="71dp"
-        android:layout_marginEnd="56dp"
-        android:layout_marginBottom="316dp"
+        android:layout_marginStart="211dp"
+        android:layout_marginTop="278dp"
+        android:layout_marginEnd="69dp"
+        android:layout_marginBottom="382dp"
+        android:background="@drawable/btn_img"
         android:text="@string/login"
+        android:textColor="#000000"
+        android:textColorHint="#000000"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/register" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <Button
         android:id="@+id/register"
         android:layout_width="131dp"
         android:layout_height="71dp"
-        android:layout_marginStart="56dp"
-        android:layout_marginBottom="316dp"
+        android:layout_marginStart="68dp"
+        android:layout_marginTop="278dp"
+        android:layout_marginEnd="212dp"
+        android:layout_marginBottom="382dp"
+        android:background="@drawable/btn_img"
         android:text="@string/register"
+        android:textColor="#000000"
+        android:textColorHint="#000000"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/login"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/textView3"
-        android:layout_width="248dp"
-        android:layout_height="50dp"
+        android:layout_width="220dp"
+        android:layout_height="56dp"
+        android:layout_marginStart="130dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="120dp"
+        android:layout_marginBottom="665dp"
         android:text="@string/welcome_to"
+        android:textColor="#000000"
+        android:textColorHint="#000000"
         android:textSize="34sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.638"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.042" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/textView4"
-        android:layout_width="303dp"
-        android:layout_height="46dp"
+        android:layout_width="271dp"
+        android:layout_height="44dp"
+        android:layout_marginStart="70dp"
+        android:layout_marginTop="79dp"
+        android:layout_marginEnd="70dp"
+        android:layout_marginBottom="538dp"
         android:text="@string/swm_sport_with_me"
+        android:textColor="#000000"
+        android:textColorHint="#000000"
         android:textSize="30dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.629"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.135" />
+        app:layout_constraintVertical_bias="0.115" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

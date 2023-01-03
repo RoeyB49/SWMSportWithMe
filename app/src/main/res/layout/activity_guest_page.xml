@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/background"
     tools:context=".Activity_Guest_Page">
 
 
@@ -11,90 +12,101 @@
         android:id="@+id/testView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="29dp"
-        android:layout_marginBottom="104dp"
-        android:background="@android:drawable/editbox_background"
+        android:layout_marginTop="125dp"
+        android:layout_marginBottom="558dp"
+        android:background="@drawable/btn_img"
         android:drawableEnd="@drawable/ic_baseline_search_24"
         android:gravity="center_vertical"
         android:hint="Select Activity"
         android:padding="12dp"
-        app:layout_constraintBottom_toTopOf="@+id/join_new_activity"
+        android:textColor="#000000"
+        android:textColorHint="#000000"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView22" />
-
-    <TextView
-        android:id="@+id/textView20"
-        android:layout_width="80dp"
-        android:layout_height="33dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="13dp"
-        android:text="Welcome"
-        app:layout_constraintEnd_toStartOf="@+id/guest_name"
-        app:layout_constraintTop_toBottomOf="@+id/textView19" />
-
-    <TextView
-        android:id="@+id/guest_name"
-        android:layout_width="119dp"
-        android:layout_height="36dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="105dp"
-        android:text="Full Name"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView19" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/textView22"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="18dp"
-        android:layout_marginBottom="29dp"
+        android:layout_marginStart="25dp"
+        android:layout_marginTop="88dp"
+        android:layout_marginEnd="239dp"
+        android:layout_marginBottom="616dp"
         android:text="Available activities:"
-        app:layout_constraintBottom_toTopOf="@+id/testView"
-        app:layout_constraintTop_toBottomOf="@+id/textView20"
-        tools:layout_editor_absoluteX="0dp" />
+        android:textColor="#000000"
+        android:textColorHint="#000000"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <Button
         android:id="@+id/join_new_activity"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="180dp"
-        android:layout_marginEnd="116dp"
+        android:layout_width="247dp"
+        android:layout_height="53dp"
+        android:layout_marginStart="82dp"
+        android:layout_marginTop="296dp"
+        android:layout_marginEnd="82dp"
+        android:layout_marginBottom="382dp"
+        android:background="@drawable/btn_img"
         android:text="Join a new activity"
+        android:textColor="#000000"
+        android:textColorHint="#000000"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView22" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/textView19"
+        android:id="@+id/GuestProfileText"
         android:layout_width="234dp"
         android:layout_height="48dp"
-        android:layout_marginBottom="8dp"
-        android:text="Guest"
+        android:layout_marginEnd="177dp"
+        android:layout_marginBottom="683dp"
+        android:text="Guest profile"
+        android:textColor="#000000"
+        android:textColorHint="#000000"
         android:textSize="34sp"
-        app:layout_constraintBottom_toTopOf="@+id/textView20"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <Spinner
         android:id="@+id/ongoing_spinner"
-        android:layout_width="271dp"
-        android:layout_height="32dp"
-        android:layout_marginTop="96dp"
-        android:layout_marginEnd="1dp"
+        android:layout_width="410dp"
+        android:layout_height="38dp"
+        android:layout_marginStart="1dp"
+        android:layout_marginTop="224dp"
+        android:layout_marginBottom="469dp"
+        android:background="@drawable/btn_img"
+        android:textColor="#000000"
+        android:textColorHint="#000000"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/join_new_activity" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:ignore="SpeakableTextPresentCheck,TouchTargetSizeCheck" />
 
     <TextView
         android:id="@+id/textView2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="21dp"
-        android:layout_marginTop="98dp"
+        android:layout_marginStart="25dp"
+        android:layout_marginTop="185dp"
+        android:layout_marginEnd="251dp"
+        android:layout_marginBottom="519dp"
         android:hint="Ongoing activities"
         android:text="Ongoing activities"
+        android:textColor="#000000"
+        android:textColorHint="#000000"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/join_new_activity"
+        app:layout_constraintTop_toTopOf="parent"
         tools:text="Ongoing activities" />
 </androidx.constraintlayout.widget.ConstraintLayout>
