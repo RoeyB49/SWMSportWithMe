@@ -35,6 +35,13 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+
+import android.content.DialogInterface;
+import android.os.Bundle;
+
+import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.app.AppCompatActivity;
+
 public class Host_Activity_Page extends AppCompatActivity {
     private TextView hostName;
     private Spinner activitiesSpinner;
@@ -67,10 +74,28 @@ public class Host_Activity_Page extends AppCompatActivity {
                 String selectedActivity = activitiesSpinner.getSelectedItem().toString();
                 String[] strArr = selectedActivity.replaceAll(" ", "").split(",");
                 if (!selectedActivity.equals("Ongoing activities")) {
-                    deleteActivity(strArr);
-                    setOngoingActivities();
-                }
+                    AlertDialog.Builder builder = new AlertDialog.Builder(Host_Activity_Page.this);
+                    builder.setMessage("An email will be sent to the participants and the activity will be deleted");
+                    builder.setTitle("Confirm Deletion");
+                    // Set Cancelable false for when the user clicks on the outside the Dialog Box then it will remain show
+                    builder.setCancelable(true);
+                    // Set the positive button with yes name Lambda OnClickListener method is use of DialogInterface interface.
+                    builder.setPositiveButton("Confirm", (DialogInterface.OnClickListener) (dialog, which) -> {
+                        // When the user click Confirm Button, the activity will be deleted
+                        deleteActivity(strArr);
+                        setOngoingActivities();
+                    });
 
+                    // Set the Negative button with No name Lambda OnClickListener method is use of DialogInterface interface.
+                    builder.setNegativeButton("Cancel", (DialogInterface.OnClickListener) (dialog, which) -> {
+                        // The deletion was cancelled
+                        dialog.cancel();
+                    });
+                    // Create the Alert dialog
+                    AlertDialog alertDialog = builder.create();
+                    // Show the Alert Dialog box
+                    alertDialog.show();
+                }
             }
         });
     }
@@ -137,6 +162,7 @@ public class Host_Activity_Page extends AppCompatActivity {
             }
         });
     }
+
     private void setOngoingActivities() {
         CollectionReference subjectsRef = db.collection("Host").document(user.getEmail().toString()).collection("Activities");
         activitiesSpinner = (Spinner) findViewById(R.id.ongoing_activities);
@@ -160,6 +186,7 @@ public class Host_Activity_Page extends AppCompatActivity {
         });
         activitiesSpinner.setAdapter(adapter);
     }
+
     private void openCreation() {
         Intent intent = new Intent(this, Activity_Creation.class);
         startActivity(intent);
