@@ -117,11 +117,14 @@ public class Host_Activity_Page extends AppCompatActivity {
                                 @Override
                                 public void onComplete(@NonNull Task<QuerySnapshot> task) {
                                     if (task.isSuccessful()) {
+                                        String sendTo = "";
                                         for (QueryDocumentSnapshot doc : task.getResult()) {
                                             deleteFromJoin(doc.getId(), strArr);
-                                            sendEmail(doc.getId(), strArr);
+                                            sendTo += ","+doc.getId();
                                             doc.getReference().delete();
                                         }
+                                        String[] sendToArr = sendTo.split(",");
+                                        sendEmail(sendToArr, strArr);
                                     }
                                 }
                             });
@@ -135,9 +138,9 @@ public class Host_Activity_Page extends AppCompatActivity {
         });
     }
 
-    private void sendEmail(String sendTo, String[] strArr) {
+    private void sendEmail(String[] sendTo, String[] strArr) {
         Intent email = new Intent(Intent.ACTION_SEND);
-        email.putExtra(Intent.EXTRA_EMAIL, new String[]{sendTo});
+        email.putExtra(Intent.EXTRA_EMAIL, sendTo);
         email.putExtra(Intent.EXTRA_SUBJECT, "SWM - Activity Deletion");
         email.putExtra(Intent.EXTRA_TEXT, "Activity " + strArr[0] + ", Date: " + strArr[1] + ", Time: " + strArr[2] + " is cancelled");
 
