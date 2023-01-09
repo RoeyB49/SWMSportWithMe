@@ -3,8 +3,11 @@
 # *Welcome to SWM!*
 
 Sports Connection, powered by SWM, is a user-friendly app that enables individuals to connect and engage in their favorite sportive activities together.
+
 With **SWM**, organizing and joining sporting events has never been simpler.
+
 As a **Hosts**, you can easily create an activity of your choice, specifying the date, time, and type of activity.
+
 As a **Guest**, you can easily search and select the activity that best suits your interests and schedule on your profile page.
 
 And if for any reason you need to cancel an activity, SWM has got you covered - **Hosts** can easily cancel events, 
