@@ -7,63 +7,28 @@
     android:background="@drawable/background"
     tools:context=".Activity_Creation">
 
-    <EditText
-        android:id="@+id/host_activity_date"
-        android:layout_width="240dp"
-        android:layout_height="49dp"
-        android:layout_marginTop="32dp"
-        android:layout_marginEnd="84dp"
-        android:autofillHints=""
-        android:ems="10"
-        android:hint="Date"
-        android:inputType="textEmailAddress"
-        android:textColor="#000000"
-        android:textColorHint="#000000"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/Type_of_activity" />
-
     <TextView
         android:id="@+id/textView18"
         android:layout_width="366dp"
         android:layout_height="48dp"
         android:layout_marginStart="3dp"
         android:layout_marginTop="1dp"
-        android:layout_marginEnd="42dp"
-        android:layout_marginBottom="682dp"
         android:text="Activity creation"
         android:textColor="#000000"
         android:textColorHint="#000000"
         android:textSize="34sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="1.0" />
-
-    <TextView
-        android:id="@+id/textView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="62dp"
-        android:text="Type of activity"
-        android:textColor="#000000"
-        android:textColorHint="#000000"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView18" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <Spinner
         android:id="@+id/Type_of_activity"
-        android:layout_width="242dp"
-        android:layout_height="34dp"
-        android:layout_marginStart="31dp"
+        android:layout_width="357dp"
+        android:layout_height="39dp"
         android:layout_marginTop="55dp"
         android:layout_marginEnd="27dp"
         android:textColor="#000000"
         android:textColorHint="#000000"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/textView"
         app:layout_constraintTop_toBottomOf="@+id/textView18" />
 
     <Button
@@ -71,7 +36,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="282dp"
-        android:layout_marginTop="301dp"
+        android:layout_marginTop="27dp"
         android:layout_marginEnd="27dp"
         android:layout_marginBottom="382dp"
         android:background="@drawable/btn_img"
@@ -80,25 +45,56 @@
         android:textColorHint="#000000"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/idBtnPickTime"
+        app:layout_constraintVertical_bias="1.0" />
 
-    <EditText
-        android:id="@+id/host_activity_time"
-        android:layout_width="240dp"
+    <Button
+        android:id="@+id/back"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="87dp"
-        android:layout_marginTop="231dp"
-        android:layout_marginEnd="84dp"
-        android:layout_marginBottom="455dp"
-        android:ems="10"
-        android:hint="Time"
-        android:inputType="time"
+        android:layout_marginStart="62dp"
+        android:layout_marginTop="22dp"
+        android:layout_marginEnd="146dp"
+        android:layout_marginBottom="382dp"
+        android:background="@drawable/btn_img"
+        android:text="BACK"
         android:textColor="#000000"
         android:textColorHint="#000000"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/host_create_activity_confirm"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/idBtnPickTime" />
+
+    <Button
+        android:id="@+id/idBtnPickDate"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:layout_margin="20dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="36dp"
+        android:layout_marginEnd="20dp"
+        android:text="Pick Date"
+        android:textAllCaps="false"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/Type_of_activity" />
+
+    <Button
+        android:id="@+id/idBtnPickTime"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:layout_margin="20dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="35dp"
+        android:layout_marginEnd="20dp"
+        android:text="Pick Time"
+        android:textAllCaps="false"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/idBtnPickDate" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
