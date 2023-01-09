@@ -1,9 +1,11 @@
 package com.example.swmsportwithme;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -126,6 +128,33 @@ public class Activity_Creation extends AppCompatActivity {
                     db.addHostActivities(activity);
                     openHostPage();
                 }
+            }
+        });
+
+        Button back = (Button) findViewById(R.id.back);
+        back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                AlertDialog.Builder builder = new AlertDialog.Builder(Activity_Creation.this);
+                builder.setMessage("Discard Changes and go back?");
+                builder.setTitle("Unsaved Changes");
+                // Set Cancelable false for when the user clicks on the outside the Dialog Box then it will remain show
+                builder.setCancelable(true);
+                // Set the positive button with yes name Lambda OnClickListener method is use of DialogInterface interface.
+                builder.setPositiveButton("Confirm", (DialogInterface.OnClickListener) (dialog, which) -> {
+                    // When the user click Confirm Button, the activity will be deleted
+                    openHostPage();
+                });
+
+                // Set the Negative button with No name Lambda OnClickListener method is use of DialogInterface interface.
+                builder.setNegativeButton("Cancel", (DialogInterface.OnClickListener) (dialog, which) -> {
+                    // The deletion was cancelled
+                    dialog.cancel();
+                });
+                // Create the Alert dialog
+                AlertDialog alertDialog = builder.create();
+                // Show the Alert Dialog box
+                alertDialog.show();
             }
         });
     }

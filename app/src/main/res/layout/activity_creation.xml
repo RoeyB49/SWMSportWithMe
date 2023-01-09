@@ -51,6 +51,23 @@
         app:layout_constraintVertical_bias="1.0" />
 
     <Button
+        android:id="@+id/back"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="62dp"
+        android:layout_marginTop="22dp"
+        android:layout_marginEnd="146dp"
+        android:layout_marginBottom="382dp"
+        android:background="@drawable/btn_img"
+        android:text="BACK"
+        android:textColor="#000000"
+        android:textColorHint="#000000"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/host_create_activity_confirm"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/idBtnPickTime" />
+
+    <Button
         android:id="@+id/idBtnPickDate"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
