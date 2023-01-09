@@ -83,7 +83,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/textView"
+        android:id="@+id/WelcomeScreenText"
         android:layout_width="390dp"
         android:layout_height="97dp"
         android:layout_marginStart="5dp"
