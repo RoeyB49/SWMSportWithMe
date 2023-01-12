@@ -4,14 +4,18 @@ import static androidx.constraintlayout.helper.widget.MotionEffect.TAG;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.util.Patterns;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
+
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
@@ -82,7 +86,8 @@ public class MainActivity extends AppCompatActivity {
                     }
                 });
     }
-//This function helps us to prepare correctly the welcome page for each of the users logged on(Host or Guest)
+
+    //This function helps us to prepare correctly the welcome page for each of the users logged on(Host or Guest)
     public void getUserType(String collectionPath, String email) {
         DocumentReference docRef = db.db.collection(collectionPath).document(email);
         docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
@@ -92,7 +97,7 @@ public class MainActivity extends AppCompatActivity {
                     DocumentSnapshot document = task.getResult();
                     if (document.exists()) {
                         Log.d(TAG, "DocumentSnapshot data: " + document.getData());
-                        if (Objects.equals(document.get("Type"), "Join")){
+                        if (Objects.equals(document.get("Type"), "Join")) {
                             openJoin();
                         } else if (Objects.equals(document.get("Type"), "Host")) {
                             openHost();
@@ -140,6 +145,26 @@ public class MainActivity extends AppCompatActivity {
             Toast.makeText(this, "Passwords does not match or too short, try again!", Toast.LENGTH_SHORT).show();
             return false;
         }
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        super.onCreateOptionsMenu(menu);
+        getMenuInflater().inflate(R.menu.menu_example, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle action bar item clicks here. The action bar will
+        // automatically handle clicks on the Home/Up button, so long
+        // as you specify a parent activity in AndroidManifest.xml.
+        switch (item.getItemId()) {
+            // Some action here
+
+        }
+        return false;
     }
 
 }
