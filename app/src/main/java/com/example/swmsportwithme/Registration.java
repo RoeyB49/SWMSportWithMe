@@ -19,11 +19,14 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
-import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.functions.FirebaseFunctions;
+import com.google.firebase.functions.HttpsCallableResult;
+import com.google.android.gms.tasks.Continuation;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.functions.FirebaseFunctionsException;
+//import com.google.firebase.functions.HttpsError;
+
 
 import java.text.DateFormat;
 import java.text.ParseException;
@@ -40,6 +43,7 @@ public class Registration extends AppCompatActivity {
     private CheckBox Football, Basketball, Swimming, Running, Tennis, Dogwalking;
     private RadioGroup ActivityType;
     private FirebaseAuth mAuth = FirebaseAuth.getInstance();
+    private FirebaseFunctions mFunctions = FirebaseFunctions.getInstance();
     final static String DATE_FORMAT = "dd/MM/yyyy";
 
     @Override
@@ -125,26 +129,52 @@ public class Registration extends AppCompatActivity {
         });
     }
 
-    private void createAccount(String email, String password) {
-        // [START create_user_with_email]
-        mAuth.createUserWithEmailAndPassword(email, password)
-                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
-                    @Override
-                    public void onComplete(@NonNull Task<AuthResult> task) {
-                        if (task.isSuccessful()) {
-                            // Sign in success, update UI with the signed-in user's information
+//    private void createAccount(String email, String password) {
+//        // [START create_user_with_email]
+//        mAuth.createUserWithEmailAndPassword(email, password)
+//                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+//                    @Override
+//                    public void onComplete(@NonNull Task<AuthResult> task) {
+//                        if (task.isSuccessful()) {
+//                            // Sign in success, update UI with the signed-in user's information
+//
+//                            Log.d(TAG, "createUserWithEmail:success");
+//                            FirebaseUser user = mAuth.getCurrentUser();
+//                        } else {
+//                            // If sign in fails, display a message to the user.
+//                            Log.w(TAG, "createUserWithEmail:failure", task.getException());
+//                            Toast.makeText(Registration.this, "Authentication failed.",
+//                                    Toast.LENGTH_LONG).show();
+//                        }
+//                    }
+//                });
+//        // [END create_user_with_email]
+//    }
 
-                            Log.d(TAG, "createUserWithEmail:success");
-                            FirebaseUser user = mAuth.getCurrentUser();
-                        } else {
-                            // If sign in fails, display a message to the user.
-                            Log.w(TAG, "createUserWithEmail:failure", task.getException());
-                            Toast.makeText(Registration.this, "Authentication failed.",
-                                    Toast.LENGTH_LONG).show();
+    private void createAccount(String email, String password) {
+        Map<String, Object> data = new HashMap<>();
+        data.put("email", email);
+        data.put("password", password);
+
+        mFunctions
+                .getHttpsCallable("createUser")
+                .call(data)
+                .continueWith(new Continuation<HttpsCallableResult, String>() {
+                    @Override
+                    public String then(@NonNull Task<HttpsCallableResult> task) throws Exception {
+                        if (!task.isSuccessful()) {
+                            Exception e = task.getException();
+                            if (e instanceof FirebaseFunctionsException) {
+                                FirebaseFunctionsException ffe = (FirebaseFunctionsException) e;
+                                String errorCode = String.valueOf(ffe.getCode());
+                                String errorMessage = ffe.getMessage();
+                                Log.e("error", errorCode + " - " + errorMessage);
+                            }
+                            return "";
                         }
+                        return (String) task.getResult().getData();
                     }
                 });
-        // [END create_user_with_email]
     }
 
     private void openMainpage() {
