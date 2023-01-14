@@ -8,6 +8,8 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -120,7 +122,7 @@ public class Host_Activity_Page extends AppCompatActivity {
                                         String sendTo = "";
                                         for (QueryDocumentSnapshot doc : task.getResult()) {
                                             deleteFromJoin(doc.getId(), strArr);
-                                            sendTo += ","+doc.getId();
+                                            sendTo += "," + doc.getId();
                                             doc.getReference().delete();
                                         }
                                         String[] sendToArr = sendTo.split(",");
@@ -193,6 +195,28 @@ public class Host_Activity_Page extends AppCompatActivity {
     private void openCreation() {
         Intent intent = new Intent(this, Activity_Creation.class);
         startActivity(intent);
+    }
+
+    private void openMainScreen() {
+        Intent intent = new Intent(this, MainActivity.class);
+        startActivity(intent);
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        super.onCreateOptionsMenu(menu);
+        getMenuInflater().inflate(R.menu.app_menu, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (item.getItemId() == R.id.logout) {
+            openMainScreen();
+            return true;
+        }
+        return false;
     }
 
 }

@@ -4,23 +4,25 @@ import static androidx.constraintlayout.helper.widget.MotionEffect.TAG;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.util.Patterns;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
+
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.auth.SignInMethodQueryResult;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
-import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.Objects;
 
@@ -82,7 +84,8 @@ public class MainActivity extends AppCompatActivity {
                     }
                 });
     }
-//This function helps us to prepare correctly the welcome page for each of the users logged on(Host or Guest)
+
+    //This function helps us to prepare correctly the welcome page for each of the users logged on(Host or Guest)
     public void getUserType(String collectionPath, String email) {
         DocumentReference docRef = db.db.collection(collectionPath).document(email);
         docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
@@ -92,7 +95,7 @@ public class MainActivity extends AppCompatActivity {
                     DocumentSnapshot document = task.getResult();
                     if (document.exists()) {
                         Log.d(TAG, "DocumentSnapshot data: " + document.getData());
-                        if (Objects.equals(document.get("Type"), "Join")){
+                        if (Objects.equals(document.get("Type"), "Join")) {
                             openJoin();
                         } else if (Objects.equals(document.get("Type"), "Host")) {
                             openHost();
@@ -141,6 +144,5 @@ public class MainActivity extends AppCompatActivity {
             return false;
         }
     }
-
 }
 
