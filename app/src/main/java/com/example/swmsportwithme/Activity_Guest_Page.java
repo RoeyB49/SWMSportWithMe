@@ -3,9 +3,11 @@ package com.example.swmsportwithme;
 import static androidx.constraintlayout.helper.widget.MotionEffect.TAG;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.Dialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
@@ -50,6 +52,8 @@ public class Activity_Guest_Page extends AppCompatActivity {
     protected FirebaseFirestore db = FirebaseFirestore.getInstance();
     private FirebaseRef dbRef = new FirebaseRef();
     private Button joinActivity;
+
+    private Button DeleteActivity;
     private TextView textview;
     private ArrayList<String> arrayList;
     //Object that will help us with the search function for the Guest user
@@ -131,6 +135,8 @@ public class Activity_Guest_Page extends AppCompatActivity {
 //End of the search function
         joinActivity = findViewById(R.id.join_new_activity);
         joinActivity.setOnClickListener(new View.OnClickListener() {
+
+
             @Override
             public void onClick(View v) {
                 String selectedActivity = textview.getText().toString();
@@ -144,9 +150,39 @@ public class Activity_Guest_Page extends AppCompatActivity {
                     dbRef.addJoinActivities(activity);
 //Update the bottom spinner on which activity did the user signed
                     setOngoingActivities();
-
 //Calling this function will put the activity the user chose to join with the helper array we created to a document called participants with his mail
                     updateJoinedUsers(strArr);
+                }
+            }
+        });
+        DeleteActivity = findViewById(R.id.delete_activity_button_join);
+        DeleteActivity.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ongoingSpinner.getSelectedItem();
+                String selectedActivity = ongoingSpinner.getSelectedItem().toString();
+                String[] strArr = selectedActivity.replaceAll(" ", "").split(",");
+                if (!selectedActivity.equals("Ongoing activities")) {
+                    AlertDialog.Builder builder = new AlertDialog.Builder(Activity_Guest_Page.this);
+                    builder.setMessage("The activity will be deleted, are you sure?");
+                    builder.setTitle("Confirm Deletion");
+                    // Set Cancelable false for when the user clicks on the outside the Dialog Box then it will remain show
+                    builder.setCancelable(true);
+                    // Set the positive button with yes name Lambda OnClickListener method is use of DialogInterface interface.
+                    builder.setPositiveButton("Confirm", (DialogInterface.OnClickListener) (dialog, which) -> {
+                        // When the user click Confirm Button, the activity will be deleted
+                        deleteactivity(strArr);
+                    });
+
+                    // Set the Negative button with No name Lambda OnClickListener method is use of DialogInterface interface.
+                    builder.setNegativeButton("Cancel", (DialogInterface.OnClickListener) (dialog, which) -> {
+                        // The deletion was cancelled
+                        dialog.cancel();
+                    });
+                    // Create the Alert dialog
+                    AlertDialog alertDialog = builder.create();
+                    // Show the Alert Dialog box
+                    alertDialog.show();
                 }
             }
         });
@@ -212,6 +248,22 @@ public class Activity_Guest_Page extends AppCompatActivity {
             }
         });
         ongoingSpinner.setAdapter(adapter);
+    }
+    private void deleteactivity(String[] strArr) {
+        CollectionReference activities = db.collection("Join").document(user.getEmail().toString()).collection("Activities");
+        activities.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+            @Override
+            public void onComplete(@org.checkerframework.checker.nullness.qual.NonNull Task<QuerySnapshot> task) {
+                if (task.isSuccessful()) {
+                    for (QueryDocumentSnapshot document : task.getResult()) {
+                        if (document.getString("Activity name").equals(strArr[0]) && document.getString("Date").equals(strArr[1]) && document.getString("Time").equals(strArr[2])) {
+                            document.getReference().delete();
+                        }
+                    }
+                    setOngoingActivities();
+                }
+            }
+        });
     }
 
     private void openMainScreen() {
