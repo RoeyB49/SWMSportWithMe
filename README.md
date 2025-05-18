@@ -4,7 +4,7 @@
 
 **The app:**
 
-Sports Connection, powered by SWM, is a user-friendly app that enables individuals to connect and engage in their favorite sportive activities together.
+Sports Connection, powered by SWM, is a user-friendly app that enables individuals to connect and engage in their favorite sport activities together.
 
 With **SWM**, organizing and joining sporting events has never been simpler.
 
